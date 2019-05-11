@@ -105,14 +105,14 @@ public class Despesa {
         if (nome.isEmpty()) {
             sql = "select * from despesa";
         } else {
-            if (tipo.equals("descricaob")) {
+            if (tipo.equals("descricao")) {
                 sql = "select * from despesa where desp_descricao like" + "'$1%'";
             } else {
                 sql = "select * from despesa where desp_tipo = " + "'$1'";
             }
         }
         sql = sql.replace("$1", nome);
-
+        System.out.println(""+sql);
         ResultSet rs;
         ArrayList<Despesa> list = new ArrayList<>();
 
