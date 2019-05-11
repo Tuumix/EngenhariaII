@@ -128,8 +128,15 @@ public class TelaBuscaDespesasController implements Initializable {
 
     @FXML
     private void btnSair(ActionEvent event) {
-        System.exit(0);
-    }
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaLançarDespesas.fxml"));
+            tela.getChildren().clear();
+            tela.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            a.showAndWait();
+        }    }
     
     public Despesa getDespesa()
     {
