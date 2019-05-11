@@ -127,8 +127,7 @@ public class TelaBuscaDespesasController implements Initializable {
     }
 
     @FXML
-    private void btnSair(ActionEvent event
-    ) {
+    private void btnSair(ActionEvent event) {
         System.exit(0);
     }
     
