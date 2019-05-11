@@ -92,6 +92,7 @@ public class TelaBuscaDespesasController implements Initializable {
     private void btnAlt(ActionEvent event) {
         if (tabela.getSelectionModel().getSelectedIndex() != -1) {
             try {
+                desp = tabela.getSelectionModel().getSelectedItem();
                 Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaLançarDespesas.fxml"));
                 tela.getChildren().clear();
                 tela.getChildren().add(root);
@@ -129,6 +130,11 @@ public class TelaBuscaDespesasController implements Initializable {
     private void btnSair(ActionEvent event
     ) {
         System.exit(0);
+    }
+    
+    public Despesa getDespesa()
+    {
+        return desp;
     }
 
 }

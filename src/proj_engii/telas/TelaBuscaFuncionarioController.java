@@ -24,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
+import proj_engii.entidade.Despesa;
 import proj_engii.entidade.Funcionario;
 
 /**
@@ -68,6 +69,7 @@ public class TelaBuscaFuncionarioController implements Initializable {
     private TableColumn<?, ?> codigo;
     @FXML
     private TableColumn<?, ?> nivel;
+    public static Despesa despesa = new Despesa();
 
     /**
      * Initializes the controller class.
@@ -184,4 +186,8 @@ public class TelaBuscaFuncionarioController implements Initializable {
         }
     }
 
+    public Despesa getDespesa()
+    {
+        return despesa;
+    }
 }
