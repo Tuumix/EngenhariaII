@@ -79,16 +79,106 @@ public class TelaLançarDespesasController implements Initializable {
     private JFXButton botao_sair;
     @FXML
     private BorderPane tela_despesa;
+    private Despesa despesa;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        despesa = TelaBuscaDespesasController.getDespesa();
+        if (despesa != null) {
+            txtDescricao.setText(despesa.getDesp_descricao());
+            txtValor.setText(despesa.getDesp_valor() + "");
+            inicializa_campos(false);
+            inicializa_botoes(true, true, false, false);
+        }
         inicializa_campos(true);
         inicializa_botoes(false, true, false, false);
         setCells();
         setCombobox();
+    }
+
+    @FXML
+    private void btnAdd(ActionEvent event) {
+        try {
+            if (!validar()) {
+                ob[0] = txtDescricao.getText();
+                ob[1] = Double.parseDouble(txtValor.getText().replace(",", "."));
+                ob[2] = cbDespesa.getSelectionModel().getSelectedItem();
+                ob[3] = dtEmissao.getValue().toString();
+                ob[4] = dtVencimento.getValue().toString();
+                list_despesa.add(new Despesa(0, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4]));
+                tabela_desp.setItems(FXCollections.observableArrayList(list_despesa));
+            }
+            //System.out.println(""+tabela_desp.getSelectionModel().getSelectedItem().getDesp_descricao());
+        } catch (Exception e) {
+            System.out.println("Erro : " + e);
+        }
+
+    }
+
+    @FXML
+    private void btnRemove(ActionEvent event) {
+        if (tabela_desp.getSelectionModel().getSelectedIndex() == -1) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Escolha primeiro para excluir!", ButtonType.OK);
+            a.showAndWait();
+        } else {
+            list_despesa.remove(tabela_desp.getSelectionModel().getSelectedItem());
+            tabela_desp.setItems(FXCollections.observableArrayList(list_despesa));
+        }
+    }
+
+    @FXML
+    private void btnLimpar(ActionEvent event) {
+        limpar_campos();
+    }
+
+    @FXML
+    private void btnGravar(ActionEvent event) {
+        if (tabela_desp.getItems().size() == 0) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Insira as despesas na tabela para gravar!", ButtonType.OK);
+            a.showAndWait();
+        } else {
+            for (int i = 0; i < tabela_desp.getItems().size(); i++) {
+                ctrl_despesa.salvar(tabela_desp.getItems().get(i));
+            }
+            limpar_campos();
+            tabela_desp.getItems().clear();
+            inicializa_campos(true);
+            inicializa_botoes(false, true, false, false);
+        }
+
+    }
+
+    @FXML
+    private void btnNovo(ActionEvent event) {
+        inicializa_campos(false);
+        inicializa_botoes(true, false, true, false);
+        cbDespesa.getSelectionModel().select(0);
+    }
+
+    @FXML
+    private void btnBuscar(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaBuscarDespesas.fxml"));
+            tela_despesa.getChildren().clear();
+            tela_despesa.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            a.showAndWait();
+        }
+    }
+
+    @FXML
+    private void btnSair(ActionEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    private void mascara_valor(KeyEvent event) {
+        MaskFieldUtil.monetaryField(txtValor);
     }
 
     public void inicializa_campos(Boolean b1) {
@@ -140,96 +230,24 @@ public class TelaLançarDespesasController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Escolha o tipo!", ButtonType.OK);
             a.showAndWait();
         }
-        /*if (dtEmissao.getValue().toString().equals("")) {
+        if (dtEmissao.getValue() == null) {
             erro = true;
             Alert a = new Alert(Alert.AlertType.ERROR, "Insira a data de emissão!", ButtonType.OK);
             a.showAndWait();
         }
-        if (dtVencimento.getValue().toString().equals("")) {
+        if (dtVencimento.getValue() == null) {
             erro = true;
             Alert a = new Alert(Alert.AlertType.ERROR, "Insira a data de Vencimento!", ButtonType.OK);
             a.showAndWait();
-        }*/
+        }
         return erro;
     }
 
-    @FXML
-    private void btnAdd(ActionEvent event) {
-        try {
-            if (!validar()) {
-                ob[0] = txtDescricao.getText();
-                ob[1] = Double.parseDouble(txtValor.getText().replace(",", "."));
-                ob[2] = cbDespesa.getSelectionModel().getSelectedItem();
-                ob[3] = dtEmissao.getValue().toString();
-                ob[4] = dtVencimento.getValue().toString();
-                list_despesa.add(new Despesa(0, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4]));
-                tabela_desp.setItems(FXCollections.observableArrayList(list_despesa));
-            }
-            //System.out.println(""+tabela_desp.getSelectionModel().getSelectedItem().getDesp_descricao());
-        } catch (Exception e) {
-            System.out.println("Erro : " + e);
-        }
-
-    }
-
-    @FXML
-    private void btnRemove(ActionEvent event) {
-        if (tabela_desp.getSelectionModel().getSelectedIndex() == -1) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Escolha primeiro para excluir!", ButtonType.OK);
-            a.showAndWait();
-        } else {
-            list_despesa.remove(tabela_desp.getSelectionModel().getSelectedItem());
-            tabela_desp.setItems(FXCollections.observableArrayList(list_despesa));
-        }
-    }
-
-    @FXML
-    private void btnLimpar(ActionEvent event) {
+    private void limpar_campos() {
         txtDescricao.setText("");
         txtValor.setText("");
         cbDespesa.setValue("");
         dtEmissao.setValue(LocalDate.now());
         dtVencimento.setValue(LocalDate.now());
     }
-
-    @FXML
-    private void btnGravar(ActionEvent event) {
-        if (tabela_desp.getItems().size() == 0) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Insira as despesas na tabela para gravar!", ButtonType.OK);
-            a.showAndWait();
-        }
-        for (int i = 0; i < tabela_desp.getItems().size(); i++) {
-            ctrl_despesa.salvar(tabela_desp.getItems().get(i));
-        }
-    }
-
-    @FXML
-    private void btnNovo(ActionEvent event) {
-        inicializa_campos(false);
-        inicializa_botoes(true, false, true, false);
-    }
-
-    @FXML
-    private void btnBuscar(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaBuscarDespesas.fxml"));
-            tela_despesa.getChildren().clear();
-            tela_despesa.getChildren().add(root);
-        } catch (Exception e) {
-            System.out.println("Erro" + e);
-            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
-            a.showAndWait();
-        }
-    }
-
-    @FXML
-    private void btnSair(ActionEvent event) {
-        System.exit(0);
-    }
-
-    @FXML
-    private void mascara_valor(KeyEvent event) {
-        MaskFieldUtil.monetaryField(txtValor);
-    }
-
 }

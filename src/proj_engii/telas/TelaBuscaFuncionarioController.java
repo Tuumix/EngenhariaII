@@ -69,7 +69,6 @@ public class TelaBuscaFuncionarioController implements Initializable {
     private TableColumn<?, ?> codigo;
     @FXML
     private TableColumn<?, ?> nivel;
-    public static Despesa despesa = new Despesa();
 
     /**
      * Initializes the controller class.
@@ -184,10 +183,5 @@ public class TelaBuscaFuncionarioController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
             a.showAndWait();
         }
-    }
-
-    public Despesa getDespesa()
-    {
-        return despesa;
     }
 }

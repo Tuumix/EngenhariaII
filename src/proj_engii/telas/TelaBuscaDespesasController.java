@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javax.swing.JOptionPane;
 import proj_engii.entidade.Despesa;
 
 /**
@@ -54,7 +55,7 @@ public class TelaBuscaDespesasController implements Initializable {
     private TableColumn<?, ?> col_dtemissao;
     private CtrlDespesa controladora_desp = new CtrlDespesa();
     private ArrayList<Despesa> list_despesa = new ArrayList<>();
-    public static Despesa desp = new Despesa();
+    public static Despesa desp;
 
     /**
      * Initializes the controller class.
@@ -64,6 +65,7 @@ public class TelaBuscaDespesasController implements Initializable {
         setCells();
         cbTipo.getItems().add("Tipo");
         cbTipo.getItems().add("Descricao");
+        cbTipo.getSelectionModel().select(0);
         list_despesa = controladora_desp.buscar(txtNome.getText(), "");
         tabela.setItems(FXCollections.observableArrayList(list_despesa));
     }
@@ -83,7 +85,7 @@ public class TelaBuscaDespesasController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Escolha um tipo a ser pesquisado!! ", ButtonType.OK);
             a.showAndWait();
         } else {
-            list_despesa = controladora_desp.buscar(txtNome.getText(), cbTipo.getSelectionModel().getSelectedItem().toString().toLowerCase());
+            list_despesa = controladora_desp.buscar(txtNome.getText(), cbTipo.getSelectionModel().getSelectedItem().toLowerCase());
         }
         tabela.setItems(FXCollections.observableArrayList(list_despesa));
     }
@@ -92,6 +94,7 @@ public class TelaBuscaDespesasController implements Initializable {
     private void btnAlt(ActionEvent event) {
         if (tabela.getSelectionModel().getSelectedIndex() != -1) {
             try {
+                desp = new Despesa();
                 desp = tabela.getSelectionModel().getSelectedItem();
                 Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaLançarDespesas.fxml"));
                 tela.getChildren().clear();
@@ -109,15 +112,21 @@ public class TelaBuscaDespesasController implements Initializable {
 
     @FXML
     private void btnExcluir(ActionEvent event) {
+        int res = JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
+
         try {
-            if (tabela.getSelectionModel().getSelectedIndex() != -1) {
-                if (controladora_desp.excluir(tabela.getSelectionModel().getSelectedItem().getDesp_cod())) {
-                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Excluído com Sucesso!! ", ButtonType.OK);
+            if (res == JOptionPane.YES_OPTION) {
+                if (tabela.getSelectionModel().getSelectedIndex() != -1) {
+                    if (controladora_desp.excluir(tabela.getSelectionModel().getSelectedItem().getDesp_cod())) {
+                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Excluído com Sucesso!! ", ButtonType.OK);
+                        a.showAndWait();
+                        list_despesa = controladora_desp.buscar(txtNome.getText(), "");
+                        tabela.setItems(FXCollections.observableArrayList(list_despesa));
+                    }
+                } else {
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um para exclusão!! ", ButtonType.OK);
                     a.showAndWait();
                 }
-            } else {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um para exclusão!! ", ButtonType.OK);
-                a.showAndWait();
             }
         } catch (Exception e) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao Excluir!! ", ButtonType.OK);
@@ -130,9 +139,8 @@ public class TelaBuscaDespesasController implements Initializable {
     private void btnSair(ActionEvent event) {
         System.exit(0);
     }
-    
-    public Despesa getDespesa()
-    {
+
+    public static Despesa getDespesa() {
         return desp;
     }
 
