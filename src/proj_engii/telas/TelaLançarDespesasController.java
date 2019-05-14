@@ -80,23 +80,29 @@ public class TelaLançarDespesasController implements Initializable {
     @FXML
     private BorderPane tela_despesa;
     private Despesa despesa;
+    @FXML
+    private JFXButton botao_alterar;
+    private int cod;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setCells();
+        setCombobox();
         despesa = TelaBuscaDespesasController.getDespesa();
+
         if (despesa != null) {
+            cod = despesa.getDesp_cod();
             txtDescricao.setText(despesa.getDesp_descricao());
             txtValor.setText(despesa.getDesp_valor() + "");
             inicializa_campos(false);
-            inicializa_botoes(true, true, false, false);
+            inicializa_botoes(true, true, false, false, false);
+        } else {
+            inicializa_campos(true);
+            inicializa_botoes(false, true, false, false, true);
         }
-        inicializa_campos(true);
-        inicializa_botoes(false, true, false, false);
-        setCells();
-        setCombobox();
     }
 
     @FXML
@@ -146,7 +152,7 @@ public class TelaLançarDespesasController implements Initializable {
             limpar_campos();
             tabela_desp.getItems().clear();
             inicializa_campos(true);
-            inicializa_botoes(false, true, false, false);
+            inicializa_botoes(false, true, false, false, true);
         }
 
     }
@@ -154,7 +160,7 @@ public class TelaLançarDespesasController implements Initializable {
     @FXML
     private void btnNovo(ActionEvent event) {
         inicializa_campos(false);
-        inicializa_botoes(true, false, true, false);
+        inicializa_botoes(true, false, true, false, true);
         cbDespesa.getSelectionModel().select(0);
     }
 
@@ -192,11 +198,12 @@ public class TelaLançarDespesasController implements Initializable {
         botao_ret.setDisable(b1);
     }
 
-    public void inicializa_botoes(Boolean b1, Boolean b2, Boolean b3, Boolean b4) {
+    public void inicializa_botoes(Boolean b1, Boolean b2, Boolean b3, Boolean b4, Boolean b5) {
         botao_novo.setDisable(b1);
         botao_gravar.setDisable(b2);
         botao_buscar.setDisable(b3);
         botao_sair.setDisable(b4);
+        botao_alterar.setDisable(b5);
     }
 
     private void setCells() {
@@ -249,5 +256,23 @@ public class TelaLançarDespesasController implements Initializable {
         cbDespesa.setValue("");
         dtEmissao.setValue(LocalDate.now());
         dtVencimento.setValue(LocalDate.now());
+    }
+
+    @FXML
+    private void btnAlterar(ActionEvent event) {
+        try {
+            if (!validar()) {
+                ob[0] = txtDescricao.getText();
+                ob[1] = Double.parseDouble(txtValor.getText().replace(",", "."));
+                ob[2] = cbDespesa.getSelectionModel().getSelectedItem();
+                ob[3] = dtEmissao.getValue().toString();
+                ob[4] = dtVencimento.getValue().toString();
+                if(ctrl_despesa.aterar(new Despesa(cod, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4])))
+                    System.out.println("ok");
+            }
+
+        } catch (Exception e) {
+
+        }
     }
 }

@@ -112,7 +112,7 @@ public class Despesa {
             }
         }
         sql = sql.replace("$1", nome);
-        System.out.println(""+sql);
+        System.out.println("" + sql);
         ResultSet rs;
         ArrayList<Despesa> list = new ArrayList<>();
 
@@ -132,6 +132,20 @@ public class Despesa {
         String sql = "delete from despesa where desp_codigo = " + "'$1'";
         sql = sql.replace("$1", codigo + "");
         System.out.println("" + sql);
+        return Banco.con.manipular(sql);
+    }
+
+    public Boolean alterar(Despesa desp) {
+        String sql = "update despesa set desp_valor = '$1', desp_dtemissao = '$2',"
+                + " desp_dtvencimento = '$3', desp_descricao = '$4', desp_tipo = '$5'"
+                + "where desp_codigo = $6";
+        sql = sql.replace("$1", desp.desp_valor + "");
+        sql = sql.replace("$2", desp.desp_dtEmissao);
+        sql = sql.replace("$3", desp.desp_dtVencimento);
+        sql = sql.replace("$4", desp.desp_descricao);
+        sql = sql.replace("$5", desp.desp_tipo + "");
+        sql = sql.replace("$6", desp.desp_cod + "");
+
         return Banco.con.manipular(sql);
     }
 }
