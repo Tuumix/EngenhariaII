@@ -64,7 +64,46 @@ public class Tipo_Despesas {
             }
         } catch (Exception er) {
         }
-
         return list;
+    }
+
+    public Boolean salvar(Tipo_Despesas tipo) {
+        try {
+            String sql = "insert into tipo_despesa(desp_tipocod, desp_tipodescri) values ($1, '$2')";
+            //System.out.println(""+nome+numero+login+senha+nivel+dtAdmissao);
+            sql = sql.replace("$1", tipo.getCodigo()+"");
+            sql = sql.replace("$2", tipo.getDescricao());
+
+            System.out.println("" + sql);
+            return Banco.con.manipular(sql);
+        } catch (Exception e) {
+            System.out.println("Erro banco " + e);
+        }
+        return false;
+    }
+    
+    public Boolean excluir(int codigo){
+        String sql = "";
+        try{
+            sql = "delete from tipo_despesas where desp_tipocod = " + codigo;
+            return Banco.con.manipular(sql);
+        }catch(Exception e){
+            System.out.println("Erro" + e);
+        }
+        return false;
+    }
+    
+    public Boolean alterar(Tipo_Despesas tipo){
+        String sql = "";
+        try
+        {
+            sql = "update tipo_despesas set desp_tipodescri = '$1'";
+            sql = sql.replace("$1", tipo.getDescricao());
+            
+            return Banco.con.manipular(sql);
+        }catch(Exception e){
+            System.out.println(""+e);
+        }
+        return false;
     }
 }

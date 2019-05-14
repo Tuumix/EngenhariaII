@@ -122,9 +122,7 @@ public class TelaLançarDespesasController implements Initializable {
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
-                //System.out.println("" + (Integer) ob[5]);
                 list_despesa.add(new Despesa(0, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5]));
-                System.out.println(""+list_despesa.get(0).getDesp_tipocod());
                 tabela_desp.setItems(FXCollections.observableArrayList(list_despesa));
             }
             //System.out.println(""+tabela_desp.getSelectionModel().getSelectedItem().getDesp_descricao());
@@ -266,14 +264,14 @@ public class TelaLançarDespesasController implements Initializable {
     private void btnAlterar(ActionEvent event) {
         try {
             if (!validar()) {
-                System.out.println("" + cbDespesa.getSelectionModel().getSelectedItem().getCodigo());
+                //System.out.println("" + cbDespesa.getSelectionModel().getSelectedItem().getCodigo());
                 ob[0] = txtDescricao.getText();
                 ob[1] = Double.parseDouble(txtValor.getText().replace(",", "."));
-                ob[2] = cbDespesa.getSelectionModel().getSelectedItem();
+                ob[2] = cbDespesa.getSelectionModel().getSelectedItem().getDescricao();
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
-                if (ctrl_despesa.aterar(new Despesa(cod, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5]))) {
+                if (ctrl_despesa.alterar(new Despesa(cod, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5]))) {
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Alterado com Sucesso!", ButtonType.OK);
                     a.showAndWait();
                 } else {
@@ -283,7 +281,7 @@ public class TelaLançarDespesasController implements Initializable {
             }
 
         } catch (Exception e) {
-
+            System.out.println(""+e);
         }
     }
 }

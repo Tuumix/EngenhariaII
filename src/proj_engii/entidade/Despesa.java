@@ -149,7 +149,7 @@ public class Despesa {
 
     public Boolean alterar(Despesa desp) {
         String sql = "update despesa set desp_valor = '$1', desp_dtemissao = '$2',"
-                + " desp_dtvencimento = '$3', desp_descricao = '$4', desp_tipo = '$5'"
+                + " desp_dtvencimento = '$3', desp_descricao = '$4', desp_tipo = '$5', desp_tipocod = $7"
                 + "where desp_codigo = $6";
         sql = sql.replace("$1", desp.desp_valor + "");
         sql = sql.replace("$2", desp.desp_dtEmissao);
@@ -157,7 +157,8 @@ public class Despesa {
         sql = sql.replace("$4", desp.desp_descricao);
         sql = sql.replace("$5", desp.desp_tipo + "");
         sql = sql.replace("$6", desp.desp_cod + "");
-
+        sql = sql.replace("$7", desp.desp_tipocod+"");
+        System.out.println(""+sql);
         return Banco.con.manipular(sql);
     }
 }

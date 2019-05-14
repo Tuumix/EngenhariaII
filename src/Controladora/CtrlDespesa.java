@@ -37,7 +37,7 @@ public class CtrlDespesa {
         return desp.excluir(codigo);
     }
     
-    public Boolean aterar(Despesa desp){
+    public Boolean alterar(Despesa desp){
         return desp.alterar(desp);
     }
 }

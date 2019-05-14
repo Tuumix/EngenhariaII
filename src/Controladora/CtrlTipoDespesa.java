@@ -13,8 +13,24 @@ import proj_engii.entidade.Tipo_Despesas;
  * @author hiroshi
  */
 public class CtrlTipoDespesa {
+
     private Tipo_Despesas tipo = new Tipo_Despesas();
-    public ArrayList<Tipo_Despesas> buscar(String descricao){
+
+    public Boolean salvar(Object[] ob) {
+        tipo = new Tipo_Despesas((Integer) ob[0], (String) ob[1]);
+        return tipo.salvar(tipo);
+    }
+
+    public ArrayList<Tipo_Despesas> buscar(String descricao) {
         return tipo.buscar(descricao);
+    }
+
+    public Boolean excluir(int codigo) {
+        return tipo.excluir(codigo);
+    }
+
+    public Boolean alterar(Object[] ob) {
+        tipo = new Tipo_Despesas((Integer) ob[0], (String) ob[1]);
+        return tipo.alterar(tipo);
     }
 }
