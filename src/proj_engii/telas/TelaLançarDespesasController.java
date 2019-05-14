@@ -7,6 +7,7 @@
 package proj_engii.telas;
 
 import Controladora.CtrlDespesa;
+import Controladora.CtrlTipoDespesa;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -30,6 +31,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import proj_engii.bancoc.MaskFieldUtil;
 import proj_engii.entidade.Despesa;
+import proj_engii.entidade.Tipo_Despesas;
 
 /**
  * FXML Controller class
@@ -39,7 +41,7 @@ import proj_engii.entidade.Despesa;
 public class TelaLançarDespesasController implements Initializable {
 
     @FXML
-    private JFXComboBox<String> cbDespesa;
+    private JFXComboBox<Tipo_Despesas> cbDespesa;
     @FXML
     private JFXTextField txtDescricao;
     @FXML
@@ -58,11 +60,8 @@ public class TelaLançarDespesasController implements Initializable {
     private TableColumn<?, ?> col_emissao;
     @FXML
     private TableColumn<?, ?> col_vencimento;
-    private ArrayList<Despesa> list_despesa = new ArrayList<>();
     @FXML
     private TableView<Despesa> tabela_desp;
-    private Object[] ob = new Object[6];
-    private CtrlDespesa ctrl_despesa = new CtrlDespesa();
     @FXML
     private JFXButton botao_add;
     @FXML
@@ -83,6 +82,13 @@ public class TelaLançarDespesasController implements Initializable {
     @FXML
     private JFXButton botao_alterar;
     private int cod;
+    private Object[] ob = new Object[6];
+    private CtrlDespesa ctrl_despesa = new CtrlDespesa();
+    private ArrayList<Despesa> list_despesa = new ArrayList<>();
+    private ArrayList<Tipo_Despesas> list_tipodespesas = new ArrayList<>();
+    private CtrlTipoDespesa ctrl_tipodespesa = new CtrlTipoDespesa();
+    @FXML
+    private TableColumn<?, ?> col_dtcod;
 
     /**
      * Initializes the controller class.
@@ -90,8 +96,9 @@ public class TelaLançarDespesasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setCells();
-        setCombobox();
         despesa = TelaBuscaDespesasController.getDespesa();
+        list_tipodespesas = ctrl_tipodespesa.buscar("");
+        cbDespesa.getItems().addAll(list_tipodespesas);
 
         if (despesa != null) {
             cod = despesa.getDesp_cod();
@@ -111,10 +118,13 @@ public class TelaLançarDespesasController implements Initializable {
             if (!validar()) {
                 ob[0] = txtDescricao.getText();
                 ob[1] = Double.parseDouble(txtValor.getText().replace(",", "."));
-                ob[2] = cbDespesa.getSelectionModel().getSelectedItem();
+                ob[2] = cbDespesa.getSelectionModel().getSelectedItem().getDescricao();
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
-                list_despesa.add(new Despesa(0, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4]));
+                ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
+                //System.out.println("" + (Integer) ob[5]);
+                list_despesa.add(new Despesa(0, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5]));
+                System.out.println(""+list_despesa.get(0).getDesp_tipocod());
                 tabela_desp.setItems(FXCollections.observableArrayList(list_despesa));
             }
             //System.out.println(""+tabela_desp.getSelectionModel().getSelectedItem().getDesp_descricao());
@@ -212,12 +222,7 @@ public class TelaLançarDespesasController implements Initializable {
         col_tipo.setCellValueFactory(new PropertyValueFactory<>("desp_tipo"));
         col_valor.setCellValueFactory(new PropertyValueFactory<>("desp_valor"));
         col_vencimento.setCellValueFactory(new PropertyValueFactory<>("desp_dtVencimento"));
-    }
-
-    private void setCombobox() {
-        cbDespesa.getItems().add("Àgua");
-        cbDespesa.getItems().add("Luz");
-        cbDespesa.getItems().add("Outros");
+        col_dtcod.setCellValueFactory(new PropertyValueFactory<>("desp_tipocod"));
     }
 
     private Boolean validar() {
@@ -253,7 +258,6 @@ public class TelaLançarDespesasController implements Initializable {
     private void limpar_campos() {
         txtDescricao.setText("");
         txtValor.setText("");
-        cbDespesa.setValue("");
         dtEmissao.setValue(LocalDate.now());
         dtVencimento.setValue(LocalDate.now());
     }
@@ -262,13 +266,20 @@ public class TelaLançarDespesasController implements Initializable {
     private void btnAlterar(ActionEvent event) {
         try {
             if (!validar()) {
+                System.out.println("" + cbDespesa.getSelectionModel().getSelectedItem().getCodigo());
                 ob[0] = txtDescricao.getText();
                 ob[1] = Double.parseDouble(txtValor.getText().replace(",", "."));
                 ob[2] = cbDespesa.getSelectionModel().getSelectedItem();
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
-                if(ctrl_despesa.aterar(new Despesa(cod, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4])))
-                    System.out.println("ok");
+                ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
+                if (ctrl_despesa.aterar(new Despesa(cod, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5]))) {
+                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Alterado com Sucesso!", ButtonType.OK);
+                    a.showAndWait();
+                } else {
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao alterar!", ButtonType.OK);
+                    a.showAndWait();
+                }
             }
 
         } catch (Exception e) {
