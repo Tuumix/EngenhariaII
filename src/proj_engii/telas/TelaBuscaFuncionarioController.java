@@ -24,7 +24,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
-import proj_engii.entidade.Despesa;
 import proj_engii.entidade.Funcionario;
 
 /**

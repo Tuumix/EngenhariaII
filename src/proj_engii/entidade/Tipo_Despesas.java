@@ -52,6 +52,10 @@ public class Tipo_Despesas {
         if (descricao.isEmpty()) {
             sql = "select * from tipo_despesa";
         }
+        else{
+            sql = "select * from tipo_despesa where desp_tipodescri like" + "'%$1%'";
+            sql = sql.replace("$1", descricao);
+        }
 
         System.out.println("" + sql);
         ResultSet rs;
@@ -70,7 +74,6 @@ public class Tipo_Despesas {
     public Boolean salvar(Tipo_Despesas tipo) {
         try {
             String sql = "insert into tipo_despesa(desp_tipocod, desp_tipodescri) values ($1, '$2')";
-            //System.out.println(""+nome+numero+login+senha+nivel+dtAdmissao);
             sql = sql.replace("$1", tipo.getCodigo()+"");
             sql = sql.replace("$2", tipo.getDescricao());
 

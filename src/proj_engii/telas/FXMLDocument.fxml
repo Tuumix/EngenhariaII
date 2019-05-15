@@ -14,6 +14,7 @@
               <MenuItem mnemonicParsing="false" onAction="#btnCadFuncionario" text="Funcionario" />
                   <MenuItem mnemonicParsing="false" onAction="#btnLogin" text="Login" />
                   <MenuItem mnemonicParsing="false" onAction="#btnDespesas" text="Lançamento Despesas" />
+                  <MenuItem mnemonicParsing="false" onAction="#btnTipoDespesas" text="Tipo Despesas" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

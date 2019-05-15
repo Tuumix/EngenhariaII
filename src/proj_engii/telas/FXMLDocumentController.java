@@ -12,11 +12,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
-import proj_engii.bancoc.Banco;
 
 /**
  * FXML Controller class
@@ -68,6 +66,19 @@ public class FXMLDocumentController implements Initializable {
     private void btnDespesas(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaLançarDespesas.fxml"));
+            tela_principal.getChildren().clear();
+            tela_principal.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            a.showAndWait();
+        }
+    }
+
+    @FXML
+    private void btnTipoDespesas(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaTipoDespesas.fxml"));
             tela_principal.getChildren().clear();
             tela_principal.getChildren().add(root);
         } catch (Exception e) {
