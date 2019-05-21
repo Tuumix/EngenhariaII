@@ -1,0 +1,9 @@
+.jfx-text-field{
+    -fx-text-inner-color: #c7ecee;
+    -fx-prompt-text-fill: #c7ecee;
+}
+
+.jfx-combo-box{
+    -fx-text-inner-color: #c7ecee;
+    -fx-prompt-text-fill: #c7ecee;
+}

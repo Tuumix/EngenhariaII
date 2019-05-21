@@ -68,6 +68,7 @@ public class TelaBuscaDespesasController implements Initializable {
         cbTipo.getSelectionModel().select(0);
         list_despesa = controladora_desp.buscar(txtNome.getText(), "");
         tabela.setItems(FXCollections.observableArrayList(list_despesa));
+        
     }
 
     private void setCells() {
@@ -112,10 +113,10 @@ public class TelaBuscaDespesasController implements Initializable {
 
     @FXML
     private void btnExcluir(ActionEvent event) {
-        int res = JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
+        //int res = JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
 
         try {
-            if (res == JOptionPane.YES_OPTION) {
+            //if (res == JOptionPane.YES_OPTION) {
                 if (tabela.getSelectionModel().getSelectedIndex() != -1) {
                     if (controladora_desp.excluir(tabela.getSelectionModel().getSelectedItem().getDesp_cod())) {
                         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Excluído com Sucesso!! ", ButtonType.OK);
@@ -127,7 +128,7 @@ public class TelaBuscaDespesasController implements Initializable {
                     Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um para exclusão!! ", ButtonType.OK);
                     a.showAndWait();
                 }
-            }
+            //}
         } catch (Exception e) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao Excluir!! ", ButtonType.OK);
             a.showAndWait();

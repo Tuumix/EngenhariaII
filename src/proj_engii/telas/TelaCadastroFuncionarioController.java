@@ -93,11 +93,16 @@ public class TelaCadastroFuncionarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Inicializa();
+        setColors();
+
+        //txtNome.setStyle("-fx-text-inner-color: white;");
     }
+//-----------------------------------------------------------------------------------------
 
     private String busca_cep(KeyEvent event) {
         return "";
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void btnGravar(ActionEvent event) {
@@ -143,26 +148,31 @@ public class TelaCadastroFuncionarioController implements Initializable {
             System.out.println("" + e);
         }
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void mascaraCEP(KeyEvent event) {
         MaskFieldUtil.cepField(txtCEP);
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void mascaraTelefone(KeyEvent event) {
         MaskFieldUtil.foneField(txtTelefone);
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void mascaraCPF(KeyEvent event) {
         MaskFieldUtil.cpfField(txtCPF);
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void mascaraNum(KeyEvent event) {
         MaskFieldUtil.numericField(txtNumero);
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void btnBuscar(ActionEvent event) {
@@ -176,6 +186,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
             a.showAndWait();
         }
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void btnAlterar(ActionEvent event) {
@@ -219,16 +230,19 @@ public class TelaCadastroFuncionarioController implements Initializable {
             System.out.println("Erro tela" + e);
         }
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void btnLimpar(ActionEvent event) {
         limpar();
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void btnSair(ActionEvent event) {
         System.exit(0);
     }
+//-----------------------------------------------------------------------------------------
 
     @FXML
     private void btnNovo(ActionEvent event) {
@@ -238,6 +252,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
         rd_masc.setDisable(false);
         lbEstado.setText("Cadastrando");
     }
+//-----------------------------------------------------------------------------------------
 
     public void estado_botoes(Boolean b1, Boolean b2, Boolean b3, Boolean b4, Boolean b5) {
         botao_alterar.setDisable(b1);
@@ -246,6 +261,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
         botao_novo.setDisable(b4);
         botao_limpar.setDisable(b5);
     }
+//-----------------------------------------------------------------------------------------
 
     public void estado_inicial(Boolean estado) {
         txtCod.setDisable(estado);
@@ -267,6 +283,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
         rd_masc.setDisable(estado);
         dt_admissao.setDisable(estado);
     }
+//-----------------------------------------------------------------------------------------
 
     public void habilita_campo() {
         txtCEP.setDisable(false);
@@ -284,6 +301,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
         cbNivel.setDisable(false);
         dt_admissao.setDisable(false);
     }
+//-----------------------------------------------------------------------------------------
 
     public void Inicializa() {
         int cod = Banco.con.getMaxPK("funcionario", "func_cod");
@@ -313,6 +331,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
             lbEstado.setText("Nulo");
         }
     }
+//-----------------------------------------------------------------------------------------
 
     public void limpar() {
         txtNome.clear();
@@ -325,6 +344,24 @@ public class TelaCadastroFuncionarioController implements Initializable {
         txtLogin.clear();
         txtTelefone.clear();
     }
+//-----------------------------------------------------------------------------------------
+
+    private void setColors() {
+        txtCEP.getStylesheets().add("/proj_engii/style.css");
+        txtCod.getStylesheets().add("/proj_engii/style.css");
+        txtNome.getStylesheets().add("/proj_engii/style.css");
+        txtCPF.getStylesheets().add("/proj_engii/style.css");
+        txtCidade.getStylesheets().add("/proj_engii/style.css");
+        txtConfirmSenha.getStylesheets().add("/proj_engii/style.css");
+        txtEmail.getStylesheets().add("/proj_engii/style.css");
+        txtLogin.getStylesheets().add("/proj_engii/style.css");
+        txtNumero.getStylesheets().add("/proj_engii/style.css");
+        txtSenha.getStylesheets().add("/proj_engii/style.css");
+        txtTelefone.getStylesheets().add("/proj_engii/style.css");
+        txtEndereco.getStylesheets().add("/proj_engii/style.css");
+        cbNivel.getStylesheets().add("/proj_engii/style.css");
+    }
+//-----------------------------------------------------------------------------------------
 
     private Boolean validar() {
         Boolean validado = true;
@@ -361,4 +398,5 @@ public class TelaCadastroFuncionarioController implements Initializable {
         }
         return validado;
     }
+    //-----------------------------------------------------------------------------------------
 }

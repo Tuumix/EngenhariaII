@@ -4,42 +4,37 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
 <BorderPane fx:id="tela_despesa" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="792.0" style="-fx-background-color: #f3ecd2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaLançarDespesasController">
    <top>
-      <HBox prefHeight="37.0" prefWidth="792.0" style="-fx-background-color: #f1f1f1;" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="37.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" BorderPane.alignment="CENTER">
          <children>
-            <JFXComboBox fx:id="cbDespesa" focusColor="#eeac72" labelFloat="true" layoutX="396.0" layoutY="36.0" prefHeight="25.0" prefWidth="356.0" promptText="Tipo de Despesa" unFocusColor="PERU" />
-            <JFXTextField fx:id="txtDescricao" focusColor="#eeac72" labelFloat="true" layoutX="35.0" layoutY="36.0" prefHeight="25.0" prefWidth="284.0" promptText="Descrição" unFocusColor="PERU" />
-            <JFXTextField fx:id="txtValor" focusColor="#eeac72" labelFloat="true" layoutX="35.0" layoutY="100.0" onKeyReleased="#mascara_valor" promptText="Valor" unFocusColor="PERU" />
-            <JFXDatePicker fx:id="dtEmissao" defaultColor="PERU" layoutX="196.0" layoutY="100.0" prefHeight="25.0" prefWidth="188.0" promptText="Data de Emissão" />
-            <JFXDatePicker fx:id="dtVencimento" defaultColor="PERU" layoutX="406.0" layoutY="100.0" prefHeight="25.0" prefWidth="185.0" promptText="Data Vencimento" />
-            <TableView fx:id="tabela_desp" layoutX="35.0" layoutY="153.0" prefHeight="343.0" prefWidth="741.0" style="-fx-border-color: #cd853f;">
-              <columns>
-                <TableColumn fx:id="col_descricao" minWidth="180.0" prefWidth="75.0" text="Descrição" />
-                <TableColumn fx:id="col_tipo" minWidth="180.0" prefWidth="75.0" text="Tipo" />
-                  <TableColumn fx:id="col_valor" minWidth="180.0" prefWidth="75.0" text="Valor" />
-                  <TableColumn fx:id="col_emissao" minWidth="180.0" prefWidth="75.0" text="Data de Emissão" />
-                  <TableColumn fx:id="col_vencimento" minWidth="180.0" prefWidth="75.0" text="Data de Vencimento" />
-                  <TableColumn fx:id="col_dtcod" prefWidth="75.0" text="Tipo Código" />
-              </columns>
-            </TableView>
-            <JFXButton fx:id="botao_add" layoutX="696.0" layoutY="125.0" onAction="#btnAdd" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #eec3a1;" text="+" textFill="#d37c39" />
-            <JFXButton fx:id="botao_ret" layoutX="737.0" layoutY="125.0" onAction="#btnRemove" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #eec3a1;" text="-" textFill="#d37c39" />
-            <JFXButton fx:id="botao_limpar" layoutX="610.0" layoutY="100.0" onAction="#btnLimpar" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);;" text="Limpar" textFill="#c8d6e5" />
-            <JFXButton fx:id="botao_novo" layoutX="143.0" layoutY="503.0" onAction="#btnNovo" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Novo" textFill="#c8d6e5" />
-            <JFXButton fx:id="botao_gravar" layoutX="251.0" layoutY="503.0" onAction="#btnGravar" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Gravar" textFill="#c8d6e5" />
-            <JFXButton fx:id="botao_buscar" layoutX="456.0" layoutY="503.0" onAction="#btnBuscar" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Buscar" textFill="#c8d6e5" />
-            <JFXButton fx:id="botao_sair" layoutX="564.0" layoutY="503.0" onAction="#btnSair" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Sair" textFill="#c8d6e5" />
-            <JFXButton fx:id="botao_alterar" layoutX="354.0" layoutY="503.0" onAction="#btnAlterar" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Alterar" textFill="#c8d6e5" />
+            <AnchorPane layoutX="10.0" layoutY="482.0" prefHeight="53.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);">
+               <children>
+                  <JFXButton fx:id="botao_novo" layoutX="142.0" layoutY="18.0" onAction="#btnNovo" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Novo" textFill="#c8d6e5" />
+                  <JFXButton fx:id="botao_gravar" layoutX="247.0" layoutY="18.0" onAction="#btnGravar" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Gravar" textFill="#c8d6e5" />
+                  <JFXButton fx:id="botao_alterar" layoutX="353.0" layoutY="18.0" onAction="#btnAlterar" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Alterar" textFill="#c8d6e5" />
+                  <JFXButton fx:id="botao_buscar" layoutX="458.0" layoutY="18.0" onAction="#btnBuscar" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Buscar" textFill="#c8d6e5" />
+                  <JFXButton fx:id="botao_sair" layoutX="555.0" layoutY="18.0" onAction="#btnSair" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);;" text="Sair" textFill="#c8d6e5" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="sub_tela" layoutX="39.0" layoutY="110.0" prefHeight="264.0" prefWidth="735.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);">
+               <children>
+                  <JFXDatePicker fx:id="dtEmissao" defaultColor="#c7ecee" layoutX="452.0" layoutY="113.0" prefHeight="25.0" prefWidth="188.0" promptText="Data de Emissão" />
+                  <JFXDatePicker fx:id="dtVencimento" defaultColor="#c7ecee" layoutX="244.0" layoutY="113.0" prefHeight="25.0" prefWidth="185.0" promptText="Data Vencimento" />
+                  <JFXButton fx:id="botao_limpar" layoutX="267.0" layoutY="183.0" onAction="#btnLimpar" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);;" text="Limpar" textFill="#c8d6e5" />
+                  <JFXDatePicker fx:id="dtPagamento" defaultColor="#c7ecee" layoutX="33.0" layoutY="183.0" promptText="Data de Pagamento" />
+                  <JFXTextField fx:id="txtDescricao" focusColor="PERU" labelFloat="true" layoutX="14.0" layoutY="21.0" promptText="Descricao" unFocusColor="#c7ecee" />
+                  <JFXComboBox fx:id="cbDespesa" focusColor="PERU" labelFloat="true" layoutX="267.0" layoutY="35.0" promptText="Despesas" unFocusColor="#c7ecee" />
+                  <JFXTextField fx:id="txtValor" focusColor="PERU" labelFloat="true" layoutX="33.0" layoutY="86.0" promptText="Valor" unFocusColor="#c7ecee" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </center>
