@@ -5,7 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="tela_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="792.0" style="-fx-background-color: #FFFAF0#FFFAF0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.FXMLDocumentController">
+<BorderPane fx:id="tela_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.FXMLDocumentController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -15,6 +15,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#btnLogin" text="Login" />
                   <MenuItem mnemonicParsing="false" onAction="#btnDespesas" text="Lançamento Despesas" />
                   <MenuItem mnemonicParsing="false" onAction="#btnTipoDespesas" text="Tipo Despesas" />
+                  <MenuItem mnemonicParsing="false" onAction="#btnOrcamento" text="Orçamento" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

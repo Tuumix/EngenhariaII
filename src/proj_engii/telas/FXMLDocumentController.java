@@ -88,4 +88,17 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    @FXML
+    private void btnOrcamento(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaOrcamento.fxml"));
+            tela_principal.getChildren().clear();
+            tela_principal.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            a.showAndWait();
+        }
+    }
+
 }

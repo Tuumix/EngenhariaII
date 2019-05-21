@@ -8,6 +8,7 @@ package proj_engii.telas;
 import Controladora.CtrlFuncionario;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -81,7 +82,6 @@ public class TelaBuscaFuncionarioController implements Initializable {
         list = ctr_func.buscar("", "");
         tabela.setItems(FXCollections.observableArrayList(list));
         f = null;
-        
     }
 
     private void setSize() {

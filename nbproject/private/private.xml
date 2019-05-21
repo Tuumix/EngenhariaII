@@ -3,19 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaLançarDespesasController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaBuscaDespesasController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaCadastroFuncionarioController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaTipoDespesasController.java</file>
+            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaOrcamentoController.java</file>
+            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaBuscaOrcamentoController.java</file>
             <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/FXMLDocumentController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/Controladora/CtrlDespesa.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaBuscaFuncionarioController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/entidade/Tipo_Despesas.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/Controladora/CtrlFuncionario.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/Controladora/CtrlTipoDespesa.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/FXMLDocument.fxml</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/entidade/Despesa.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/bancoc/Conexao.java</file>
         </group>
     </open-files>
 </project-private>

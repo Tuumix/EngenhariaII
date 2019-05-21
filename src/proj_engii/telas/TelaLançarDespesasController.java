@@ -187,7 +187,15 @@ public class TelaLançarDespesasController implements Initializable {
 
     @FXML
     private void btnSair(ActionEvent event) {
-        System.exit(0);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/FXMLDocument.fxml"));
+            tela_despesa.getChildren().clear();
+            tela_despesa.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            a.showAndWait();
+        }
     }
 
     @FXML
