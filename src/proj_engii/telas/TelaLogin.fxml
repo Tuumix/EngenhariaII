@@ -6,13 +6,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="tela" prefHeight="579.0" prefWidth="792.0" style="-fx-background-color: #f3ecd2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaLoginController">
+<AnchorPane id="AnchorPane" fx:id="tela" prefHeight="579.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaLoginController">
    <children>
-      <AnchorPane layoutX="253.0" layoutY="182.0" prefHeight="200.0" prefWidth="319.0" style="-fx-background-color: #f7e6a8; -fx-border-radius: 50;">
+      <AnchorPane layoutX="253.0" layoutY="122.0" prefHeight="260.0" prefWidth="319.0" style="-fx-background-color: linear-gradient(#222f3e,#576574); -fx-border-radius: 50;">
          <children>
-            <JFXTextField fx:id="txtLogin" focusColor="DARKSALMON" labelFloat="true" layoutX="84.0" layoutY="37.0" promptText="Login" unFocusColor="PERU" />
-            <JFXPasswordField fx:id="txtSenha" focusColor="DARKSALMON" labelFloat="true" layoutX="28.0" layoutY="87.0" prefHeight="27.0" prefWidth="264.0" promptText="Senha" unFocusColor="PERU" />
-            <JFXButton layoutX="101.0" layoutY="137.0" onAction="#btnLogar" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: #f1ca80;" text="Log in" />
+            <JFXTextField fx:id="txtLogin" focusColor="DARKSALMON" labelFloat="true" layoutX="36.0" layoutY="78.0" prefHeight="27.0" prefWidth="231.0" promptText="Login" unFocusColor="PERU" />
+            <JFXPasswordField fx:id="txtSenha" focusColor="DARKSALMON" labelFloat="true" layoutX="36.0" layoutY="130.0" prefHeight="27.0" prefWidth="231.0" promptText="Senha" unFocusColor="PERU" />
+            <JFXButton layoutX="29.0" layoutY="203.0" onAction="#btnLogar" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);" text="Log in" />
+            <JFXButton layoutX="169.0" layoutY="203.0" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);" />
          </children></AnchorPane>
       <Button layoutX="7.0" layoutY="7.0" mnemonicParsing="false" onAction="#btnVoltar" style="-fx-background-color: #f1ca80;" text="&lt;-" />
    </children>

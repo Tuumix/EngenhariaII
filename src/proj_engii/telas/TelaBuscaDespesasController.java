@@ -56,6 +56,8 @@ public class TelaBuscaDespesasController implements Initializable {
     private CtrlDespesa controladora_desp = new CtrlDespesa();
     private ArrayList<Despesa> list_despesa = new ArrayList<>();
     public static Despesa desp;
+    @FXML
+    private TableColumn<?, ?> col_pagamento;
 
     /**
      * Initializes the controller class.
@@ -68,7 +70,6 @@ public class TelaBuscaDespesasController implements Initializable {
         cbTipo.getSelectionModel().select(0);
         list_despesa = controladora_desp.buscar(txtNome.getText(), "");
         tabela.setItems(FXCollections.observableArrayList(list_despesa));
-        
     }
 
     private void setCells() {
@@ -78,6 +79,8 @@ public class TelaBuscaDespesasController implements Initializable {
         col_tipo.setCellValueFactory(new PropertyValueFactory<>("desp_tipo"));
         col_valor.setCellValueFactory(new PropertyValueFactory<>("desp_valor"));
         col_dtVencimento.setCellValueFactory(new PropertyValueFactory<>("desp_dtVencimento"));
+        col_pagamento.setCellValueFactory(new PropertyValueFactory<>("desp_dtPagamento"));
+        tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     @FXML
@@ -117,23 +120,22 @@ public class TelaBuscaDespesasController implements Initializable {
 
         try {
             //if (res == JOptionPane.YES_OPTION) {
-                if (tabela.getSelectionModel().getSelectedIndex() != -1) {
-                    if (controladora_desp.excluir(tabela.getSelectionModel().getSelectedItem().getDesp_cod())) {
-                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Excluído com Sucesso!! ", ButtonType.OK);
-                        a.showAndWait();
-                        list_despesa = controladora_desp.buscar(txtNome.getText(), "");
-                        tabela.setItems(FXCollections.observableArrayList(list_despesa));
-                    }
-                } else {
-                    Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um para exclusão!! ", ButtonType.OK);
+            if (tabela.getSelectionModel().getSelectedIndex() != -1) {
+                if (controladora_desp.excluir(tabela.getSelectionModel().getSelectedItem().getDesp_cod())) {
+                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Excluído com Sucesso!! ", ButtonType.OK);
                     a.showAndWait();
+                    list_despesa = controladora_desp.buscar(txtNome.getText(), "");
+                    tabela.setItems(FXCollections.observableArrayList(list_despesa));
                 }
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um para exclusão!! ", ButtonType.OK);
+                a.showAndWait();
+            }
             //}
         } catch (Exception e) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao Excluir!! ", ButtonType.OK);
             a.showAndWait();
         }
-
     }
 
     @FXML

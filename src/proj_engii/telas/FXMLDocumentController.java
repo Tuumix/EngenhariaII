@@ -32,8 +32,6 @@ public class FXMLDocumentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Parent root = null;
-        //System.out.println(""+Banco.con.getEstadoConexao());
     }
 
     @FXML

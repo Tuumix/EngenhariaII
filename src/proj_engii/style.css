@@ -5,5 +5,5 @@
 
 .jfx-combo-box{
     -fx-text-inner-color: #c7ecee;
-    -fx-prompt-text-fill: #c7ecee;
+    -fx-text-fill: #c7ecee;
 }

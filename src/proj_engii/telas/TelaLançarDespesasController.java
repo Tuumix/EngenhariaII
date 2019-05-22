@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -57,7 +58,7 @@ public class TelaLançarDespesasController implements Initializable {
     @FXML
     private JFXButton botao_alterar;
     private int cod;
-    private Object[] ob = new Object[6];
+    private Object[] ob = new Object[10];
     private CtrlDespesa ctrl_despesa = new CtrlDespesa();
     private ArrayList<Despesa> list_despesa = new ArrayList<>();
     private ArrayList<Tipo_Despesas> list_tipodespesas = new ArrayList<>();
@@ -72,6 +73,9 @@ public class TelaLançarDespesasController implements Initializable {
     private JFXComboBox<Tipo_Despesas> cbDespesa;
     @FXML
     private JFXTextField txtValor;
+    @FXML
+    private Label lbEstado;
+    private LocalDate local;
 
     /**
      * Initializes the controller class.
@@ -87,6 +91,13 @@ public class TelaLançarDespesasController implements Initializable {
             cod = despesa.getDesp_cod();
             txtDescricao.setText(despesa.getDesp_descricao());
             txtValor.setText(despesa.getDesp_valor() + "");
+            dtEmissao.setValue(local.parse(despesa.getDesp_dtEmissao()));
+            dtVencimento.setValue(local.parse(despesa.getDesp_dtEmissao()));
+            if (despesa.getDesp_dtPagamento().equals("1900-01-01")) {
+                dtPagamento.setValue(local.parse("1900-01-01"));
+            }
+            else
+                dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
             inicializa_campos(false);
             inicializa_botoes(true, true, false, false, false);
         } else {
@@ -110,11 +121,16 @@ public class TelaLançarDespesasController implements Initializable {
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Inserido com sucesso!", ButtonType.OK);
-                a.showAndWait();
-                list_despesa.add(new Despesa(0, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5]));
+                if (dtPagamento.getValue() == null) {
+                    ob[6] = "1900-01-01";
+                } else {
+                    ob[6] = dtPagamento.getValue().toString();
+                }
+                if (ctrl_despesa.salvar(new Despesa(0, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5], (String) ob[6]))) {
+                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Inserido com sucesso!", ButtonType.OK);
+                    a.showAndWait();
+                }
             }
-            //System.out.println(""+tabela_desp.getSelectionModel().getSelectedItem().getDesp_descricao());
         } catch (Exception e) {
             System.out.println("Erro : " + e);
         }
@@ -215,14 +231,19 @@ public class TelaLançarDespesasController implements Initializable {
     private void btnAlterar(ActionEvent event) {
         try {
             if (!validar()) {
-                //System.out.println("" + cbDespesa.getSelectionModel().getSelectedItem().getCodigo());
                 ob[0] = txtDescricao.getText();
                 ob[1] = Double.parseDouble(txtValor.getText().replace(",", "."));
                 ob[2] = cbDespesa.getSelectionModel().getSelectedItem().getDescricao();
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
-                if (ctrl_despesa.alterar(new Despesa(cod, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5]))) {
+
+                if (dtPagamento.getValue() == null) {
+                    ob[6] = "1900-01-01";
+                } else {
+                    ob[6] = dtPagamento.getValue().toString();
+                }
+                if (ctrl_despesa.alterar(new Despesa(cod, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5], (String) ob[6]))) {
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Alterado com Sucesso!", ButtonType.OK);
                     a.showAndWait();
                 } else {
@@ -243,5 +264,20 @@ public class TelaLançarDespesasController implements Initializable {
         dtVencimento.getStylesheets().add("/proj_engii/style.css");
         dtPagamento.getStylesheets().add("/proj_engii/style.css");
         cbDespesa.getStylesheets().add("/proj_engii/style.css");
+    }
+
+    @FXML
+    private void btn_buscadesp(KeyEvent event) {
+        ArrayList<Tipo_Despesas> aux = new ArrayList<>();
+        
+        for(int i = 0; i < list_tipodespesas.size();i++){
+            if(list_tipodespesas.get(i).getDescricao().contains(cbDespesa.getEditor().getText())){
+                aux.add(list_tipodespesas.get(i));
+            }
+        }
+        /*list_tipodespesas = ctrl_tipodespesa.buscar(cbDespesa.getEditor().getText());
+        cbDespesa.*/
+        cbDespesa.getItems().clear();
+        cbDespesa.getItems().addAll(aux);
     }
 }
