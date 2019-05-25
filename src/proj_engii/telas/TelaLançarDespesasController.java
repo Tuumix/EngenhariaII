@@ -86,7 +86,7 @@ public class TelaLançarDespesasController implements Initializable {
         despesa = TelaBuscaDespesasController.getDespesa();
         list_tipodespesas = ctrl_tipodespesa.buscar("");
         cbDespesa.getItems().addAll(list_tipodespesas);
-        System.out.println(""+cbDespesa.getItems().get(0).getDescricao());
+        System.out.println("" + cbDespesa.getItems().get(0).getDescricao());
         //sub_tela.setOpacity(0.2);
         setColors();
         if (despesa != null) {
@@ -95,11 +95,12 @@ public class TelaLançarDespesasController implements Initializable {
             txtValor.setText(despesa.getDesp_valor() + "");
             dtEmissao.setValue(local.parse(despesa.getDesp_dtEmissao()));
             dtVencimento.setValue(local.parse(despesa.getDesp_dtEmissao()));
+            dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
             if (despesa.getDesp_dtPagamento().equals("1900-01-01")) {
                 dtPagamento.setValue(local.parse("1900-01-01"));
-            }
-            else
+            } else {
                 dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
+            }
             inicializa_campos(false);
             inicializa_botoes(true, true, false, false, false);
         } else {
@@ -132,6 +133,9 @@ public class TelaLançarDespesasController implements Initializable {
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Inserido com sucesso!", ButtonType.OK);
                     a.showAndWait();
                 }
+                inicializa_campos(true);
+                inicializa_botoes(false, true, false, false, true);
+                limpar_campos();
             }
         } catch (Exception e) {
             System.out.println("Erro : " + e);
@@ -182,6 +186,7 @@ public class TelaLançarDespesasController implements Initializable {
         dtEmissao.setDisable(b1);
         dtVencimento.setDisable(b1);
         botao_limpar.setDisable(b1);
+        dtPagamento.setDisable(b1);
     }
 
     public void inicializa_botoes(Boolean b1, Boolean b2, Boolean b3, Boolean b4, Boolean b5) {
