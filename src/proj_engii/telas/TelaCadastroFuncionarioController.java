@@ -360,6 +360,9 @@ public class TelaCadastroFuncionarioController implements Initializable {
         txtTelefone.getStylesheets().add("/proj_engii/style.css");
         txtEndereco.getStylesheets().add("/proj_engii/style.css");
         cbNivel.getStylesheets().add("/proj_engii/style.css");
+        txtConfirmSenha.getStylesheets().add("/proj_engii/style.css");
+        dt_admissao.getStylesheets().add("/proj_engii/style.css");
+        
     }
 //-----------------------------------------------------------------------------------------
 

@@ -7,3 +7,9 @@
     -fx-text-inner-color: #c7ecee;
     -fx-text-fill: #c7ecee;
 }
+
+.jfx-password-field{
+    -fx-text-inner-color: #c7ecee;
+    -fx-prompt-text-fill: #c7ecee;
+    -fx-text-fill: #c7ecee;
+}

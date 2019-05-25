@@ -79,5 +79,9 @@ public class TelaLoginController implements Initializable {
 
         }
     }
+    
+    private void setColors(){
+        txtLogin.getStylesheets().add("");
+    }
 
 }

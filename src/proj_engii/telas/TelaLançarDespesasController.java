@@ -82,9 +82,11 @@ public class TelaLançarDespesasController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cbDespesa.setEditable(false);
         despesa = TelaBuscaDespesasController.getDespesa();
         list_tipodespesas = ctrl_tipodespesa.buscar("");
         cbDespesa.getItems().addAll(list_tipodespesas);
+        System.out.println(""+cbDespesa.getItems().get(0).getDescricao());
         //sub_tela.setOpacity(0.2);
         setColors();
         if (despesa != null) {
@@ -117,7 +119,7 @@ public class TelaLançarDespesasController implements Initializable {
             if (!validar()) {
                 ob[0] = txtDescricao.getText();
                 ob[1] = Double.parseDouble(txtValor.getText().replace(",", "."));
-                ob[2] = cbDespesa.getSelectionModel().getSelectedItem().getDescricao();
+                ob[2] = cbDespesa.getItems().get(cbDespesa.getSelectionModel().getSelectedIndex()).toString();
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
@@ -268,16 +270,5 @@ public class TelaLançarDespesasController implements Initializable {
 
     @FXML
     private void btn_buscadesp(KeyEvent event) {
-        ArrayList<Tipo_Despesas> aux = new ArrayList<>();
-        
-        for(int i = 0; i < list_tipodespesas.size();i++){
-            if(list_tipodespesas.get(i).getDescricao().contains(cbDespesa.getEditor().getText())){
-                aux.add(list_tipodespesas.get(i));
-            }
-        }
-        /*list_tipodespesas = ctrl_tipodespesa.buscar(cbDespesa.getEditor().getText());
-        cbDespesa.*/
-        cbDespesa.getItems().clear();
-        cbDespesa.getItems().addAll(aux);
     }
 }

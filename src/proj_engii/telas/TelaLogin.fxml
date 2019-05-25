@@ -10,10 +10,10 @@
    <children>
       <AnchorPane layoutX="253.0" layoutY="122.0" prefHeight="260.0" prefWidth="319.0" style="-fx-background-color: linear-gradient(#222f3e,#576574); -fx-border-radius: 50;">
          <children>
-            <JFXTextField fx:id="txtLogin" focusColor="DARKSALMON" labelFloat="true" layoutX="36.0" layoutY="78.0" prefHeight="27.0" prefWidth="231.0" promptText="Login" unFocusColor="PERU" />
-            <JFXPasswordField fx:id="txtSenha" focusColor="DARKSALMON" labelFloat="true" layoutX="36.0" layoutY="130.0" prefHeight="27.0" prefWidth="231.0" promptText="Senha" unFocusColor="PERU" />
-            <JFXButton layoutX="29.0" layoutY="203.0" onAction="#btnLogar" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);" text="Log in" />
-            <JFXButton layoutX="169.0" layoutY="203.0" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);" />
+            <JFXTextField fx:id="txtLogin" focusColor="PERU" labelFloat="true" layoutX="36.0" layoutY="78.0" prefHeight="27.0" prefWidth="231.0" promptText="Login" unFocusColor="#c7ecee" />
+            <JFXPasswordField fx:id="txtSenha" focusColor="DARKSALMON" labelFloat="true" layoutX="36.0" layoutY="130.0" prefHeight="27.0" prefWidth="231.0" promptText="Senha" unFocusColor="#c7ecee" />
+            <JFXButton layoutX="29.0" layoutY="203.0" onAction="#btnLogar" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);" text="Log in" textFill="#c7ecee" />
+            <JFXButton layoutX="169.0" layoutY="203.0" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);" textFill="#c7ecee" />
          </children></AnchorPane>
       <Button layoutX="7.0" layoutY="7.0" mnemonicParsing="false" onAction="#btnVoltar" style="-fx-background-color: #f1ca80;" text="&lt;-" />
    </children>
