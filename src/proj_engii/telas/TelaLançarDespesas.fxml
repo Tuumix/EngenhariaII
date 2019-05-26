@@ -35,7 +35,7 @@
                   <JFXTextField fx:id="txtValor" focusColor="PERU" labelFloat="true" layoutX="33.0" layoutY="105.0" promptText="Valor" unFocusColor="#c7ecee" />
                   <AnchorPane layoutX="268.0" layoutY="26.0" prefHeight="46.0" prefWidth="473.0">
                      <children>
-                        <JFXComboBox fx:id="cbDespesa" editable="true" focusColor="PERU" labelFloat="true" layoutX="14.0" layoutY="11.0" onKeyReleased="#btn_buscadesp" prefHeight="27.0" prefWidth="182.0" promptText="Despesas" unFocusColor="#c7ecee" />
+                        <JFXComboBox fx:id="cbDespesa" focusColor="PERU" labelFloat="true" layoutX="14.0" layoutY="11.0" onKeyReleased="#btn_buscadesp" prefHeight="27.0" prefWidth="182.0" promptText="Despesas" unFocusColor="#c7ecee" />
                      </children>
                   </AnchorPane>
                </children>
