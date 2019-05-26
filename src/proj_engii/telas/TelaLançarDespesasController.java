@@ -85,6 +85,9 @@ public class TelaLançarDespesasController implements Initializable {
         despesa = TelaBuscaDespesasController.getDespesa();
         list_tipodespesas = ctrl_tipodespesa.buscar("");
         cbDespesa.getItems().addAll(list_tipodespesas);
+
+        System.out.println("" + cbDespesa.getItems().get(0).getDescricao());
+        //sub_tela.setOpacity(0.2);
         setColors();
         if (despesa != null) {
             cod = despesa.getDesp_cod();
@@ -92,6 +95,7 @@ public class TelaLançarDespesasController implements Initializable {
             txtValor.setText(despesa.getDesp_valor() + "");
             dtEmissao.setValue(local.parse(despesa.getDesp_dtEmissao()));
             dtVencimento.setValue(local.parse(despesa.getDesp_dtEmissao()));
+            dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
             if (despesa.getDesp_dtPagamento().equals("1900-01-01")) {
                 dtPagamento.setValue(local.parse("1900-01-01"));
             } else {
@@ -136,8 +140,12 @@ public class TelaLançarDespesasController implements Initializable {
                     a.showAndWait();
                 }
                 inicializa_campos(true);
+
                 limpar_campos();
                 inicializa_botoes(false, true, false, false, true);
+
+                inicializa_botoes(false, true, false, false, true);
+                limpar_campos();
             }
         } catch (Exception e) {
             System.out.println("Erro : " + e);
