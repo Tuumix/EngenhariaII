@@ -180,7 +180,7 @@ public class Funcionario {
             sql = sql.replace("$5", sexo);
             sql = sql.replace("$6", telefone);
             sql = sql.replace("$7", email);
-            sql = sql.replace("$8", numero+"");
+            sql = sql.replace("$8", numero + "");
             sql = sql.replace("$9", login);
             sql = sql.replace("$a", senha);
             sql = sql.replace("$b", nivel);
@@ -246,7 +246,7 @@ public class Funcionario {
             sql = sql.replace("$d", func.getSenha());
             sql = sql.replace("$e", func.getNome());
             sql = sql.replace("$r", cod + "");
-            System.out.println(""+sql);
+            System.out.println("" + sql);
             return Banco.con.manipular(sql);
 
         } catch (Exception e) {
@@ -258,7 +258,7 @@ public class Funcionario {
     public Boolean excluir(int codigo) {
         String sql = "delete from funcionario where func_cod = " + "'$1'";
         sql = sql.replace("$1", codigo + "");
-        System.out.println(""+sql);
+        System.out.println("" + sql);
         return Banco.con.manipular(sql);
     }
 
@@ -269,7 +269,7 @@ public class Funcionario {
 
         ResultSet rs;
         ArrayList<Funcionario> list = new ArrayList<>();
-        System.out.println(""+sql);
+        System.out.println("" + sql);
         try {
             rs = Banco.con.consultar(sql);
             while (rs.next()) {
@@ -282,5 +282,10 @@ public class Funcionario {
         } catch (Exception er) {
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

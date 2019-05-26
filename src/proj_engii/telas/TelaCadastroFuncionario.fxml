@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="telaCad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="792.0" style="-fx-background-color: #FFF8DC#FFF8DC;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaCadastroFuncionarioController">
+<BorderPane fx:id="telaCad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaCadastroFuncionarioController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +28,7 @@
             <JFXTextField fx:id="txtCidade" focusColor="DARKSALMON" labelFloat="true" layoutX="34.0" layoutY="403.0" prefHeight="27.0" prefWidth="222.0" promptText="Cidade" unFocusColor="#c7ecee" />
             <JFXTextField fx:id="txtCEP" focusColor="DARKSALMON" labelFloat="true" layoutX="30.0" layoutY="293.0" onKeyReleased="#mascaraCEP" promptText="CEP" unFocusColor="#c7ecee" />
             <JFXTextField fx:id="txtEndereco" focusColor="DARKSALMON" labelFloat="true" layoutX="31.0" layoutY="453.0" prefHeight="27.0" prefWidth="338.0" promptText="Endereço" unFocusColor="#c7ecee" />
-            <JFXTextField fx:id="txtTelefone" labelFloat="true" layoutX="417.0" layoutY="114.0" onKeyReleased="#mascaraTelefone" prefHeight="27.0" prefWidth="197.0" promptText="Telefone" unFocusColor="#c7ecee" />
+            <JFXTextField fx:id="txtTelefone" focusColor="PERU" labelFloat="true" layoutX="417.0" layoutY="114.0" onKeyReleased="#mascaraTelefone" prefHeight="27.0" prefWidth="197.0" promptText="Telefone" unFocusColor="#c7ecee" />
             <JFXRadioButton fx:id="rd_masc" layoutX="31.0" layoutY="259.0" text="Masculino" textFill="#c7ecee" />
             <JFXRadioButton fx:id="rd_fem" layoutX="181.0" layoutY="259.0" text="Feminino" textFill="#c7ecee" />
             <JFXTextField fx:id="txtLogin" focusColor="DARKSALMON" labelFloat="true" layoutX="404.0" layoutY="243.0" promptText="Login" unFocusColor="#c7ecee" />
@@ -38,7 +38,7 @@
             <JFXTextField fx:id="txtCPF" focusColor="DARKSALMON" labelFloat="true" layoutX="30.0" layoutY="205.0" onKeyReleased="#mascaraCPF" prefHeight="27.0" prefWidth="185.0" promptText="CPF" unFocusColor="#c7ecee" />
             <JFXTextField fx:id="txtNumero" focusColor="DARKSALMON" labelFloat="true" layoutX="34.0" layoutY="343.0" onKeyReleased="#mascaraNum" prefHeight="27.0" prefWidth="85.0" promptText="Número" unFocusColor="#c7ecee" />
             <JFXTextField fx:id="txtCod" focusColor="DARKSALMON" labelFloat="true" layoutX="30.0" layoutY="62.0" prefHeight="27.0" prefWidth="105.0" promptText="Código" unFocusColor="#c7ecee" />
-            <JFXButton fx:id="botao_limpar" layoutX="668.0" layoutY="114.0" onAction="#btnLimpar" prefHeight="27.0" prefWidth="96.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Limpar" textFill="#7f8c8d" />
+            <JFXButton fx:id="botao_limpar" layoutX="668.0" layoutY="114.0" onAction="#btnLimpar" prefHeight="27.0" prefWidth="96.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Limpar" textFill="#c7ecee" />
             <Label layoutX="595.0" layoutY="41.0" text="Estado :" textFill="#7f8c8d">
                <font>
                   <Font size="18.0" />
@@ -77,11 +77,11 @@
    <bottom>
       <AnchorPane prefHeight="59.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#353b48,#2f3640);" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="botao_gravar" buttonType="RAISED" layoutX="245.0" layoutY="15.0" onAction="#btnGravar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Gravar" textFill="#7f8c8d" />
-            <JFXButton fx:id="botao_buscar" layoutX="355.0" layoutY="15.0" onAction="#btnBuscar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Buscar" textFill="#7f8c8d" />
-            <JFXButton fx:id="botao_alterar" buttonType="RAISED" layoutX="469.0" layoutY="15.0" onAction="#btnAlterar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Alterar" textFill="#7f8c8d" />
-            <JFXButton layoutX="582.0" layoutY="15.0" onAction="#btnSair" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Sair" textFill="#7f8c8d" />
-            <JFXButton fx:id="botao_novo" layoutX="141.0" layoutY="16.0" onAction="#btnNovo" prefHeight="29.0" prefWidth="67.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Novo" textFill="#7f8c8d" />
+            <JFXButton fx:id="botao_gravar" buttonType="RAISED" layoutX="245.0" layoutY="15.0" onAction="#btnGravar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Gravar" textFill="#c7ecee" />
+            <JFXButton fx:id="botao_buscar" layoutX="355.0" layoutY="15.0" onAction="#btnBuscar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Buscar" textFill="#c7ecee" />
+            <JFXButton fx:id="botao_alterar" buttonType="RAISED" layoutX="469.0" layoutY="15.0" onAction="#btnAlterar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Alterar" textFill="#c7ecee" />
+            <JFXButton layoutX="582.0" layoutY="15.0" onAction="#btnSair" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Sair" textFill="#c7ecee" />
+            <JFXButton fx:id="botao_novo" layoutX="141.0" layoutY="16.0" onAction="#btnNovo" prefHeight="29.0" prefWidth="67.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Novo" textFill="#c7ecee" />
          </children>
       </AnchorPane>
    </bottom>

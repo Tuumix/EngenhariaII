@@ -82,12 +82,9 @@ public class TelaLançarDespesasController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbDespesa.setEditable(false);
         despesa = TelaBuscaDespesasController.getDespesa();
         list_tipodespesas = ctrl_tipodespesa.buscar("");
         cbDespesa.getItems().addAll(list_tipodespesas);
-        System.out.println(""+cbDespesa.getItems().get(0).getDescricao());
-        //sub_tela.setOpacity(0.2);
         setColors();
         if (despesa != null) {
             cod = despesa.getDesp_cod();
@@ -97,15 +94,17 @@ public class TelaLançarDespesasController implements Initializable {
             dtVencimento.setValue(local.parse(despesa.getDesp_dtEmissao()));
             if (despesa.getDesp_dtPagamento().equals("1900-01-01")) {
                 dtPagamento.setValue(local.parse("1900-01-01"));
-            }
-            else
+            } else {
                 dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
+            }
             inicializa_campos(false);
             inicializa_botoes(true, true, false, false, false);
         } else {
             inicializa_campos(true);
             inicializa_botoes(false, true, false, false, true);
         }
+        //cbDespesa.setEditable(true);
+
     }
 
     @FXML
@@ -115,6 +114,9 @@ public class TelaLançarDespesasController implements Initializable {
 
     @FXML
     private void btnGravar(ActionEvent event) {
+        cbDespesa.setEditable(false);
+        //System.out.println("" + cbDespesa.get);
+        //System.out.println("" + cbDespesa.getItems().size());
         try {
             if (!validar()) {
                 ob[0] = txtDescricao.getText();
@@ -123,6 +125,7 @@ public class TelaLançarDespesasController implements Initializable {
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
+                System.out.println(""+ob[5] + ob[2]);
                 if (dtPagamento.getValue() == null) {
                     ob[6] = "1900-01-01";
                 } else {
@@ -132,10 +135,14 @@ public class TelaLançarDespesasController implements Initializable {
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Inserido com sucesso!", ButtonType.OK);
                     a.showAndWait();
                 }
+                inicializa_campos(true);
+                limpar_campos();
+                inicializa_botoes(false, true, false, false, true);
             }
         } catch (Exception e) {
             System.out.println("Erro : " + e);
         }
+        //cbDespesa.setEditable(true);
     }
 
     @FXML
@@ -182,6 +189,7 @@ public class TelaLançarDespesasController implements Initializable {
         dtEmissao.setDisable(b1);
         dtVencimento.setDisable(b1);
         botao_limpar.setDisable(b1);
+        dtPagamento.setDisable(b1);
     }
 
     public void inicializa_botoes(Boolean b1, Boolean b2, Boolean b3, Boolean b4, Boolean b5) {
@@ -248,6 +256,9 @@ public class TelaLançarDespesasController implements Initializable {
                 if (ctrl_despesa.alterar(new Despesa(cod, (String) ob[0], (Double) ob[1], (String) ob[2], (String) ob[3], (String) ob[4], (Integer) ob[5], (String) ob[6]))) {
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Alterado com Sucesso!", ButtonType.OK);
                     a.showAndWait();
+                    inicializa_campos(true);
+                    limpar_campos();
+                    inicializa_botoes(false, true, false, false, true);
                 } else {
                     Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao alterar!", ButtonType.OK);
                     a.showAndWait();
@@ -270,5 +281,16 @@ public class TelaLançarDespesasController implements Initializable {
 
     @FXML
     private void btn_buscadesp(KeyEvent event) {
+        ArrayList<Tipo_Despesas> list_tipo = new ArrayList<>();
+        System.out.println("" + cbDespesa.getEditor().getText());
+
+        for (int i = 0; i < list_tipodespesas.size(); i++) {
+            if (list_tipodespesas.get(i).getDescricao().contains(cbDespesa.getEditor().getText())) {
+                list_tipo.add(new Tipo_Despesas(list_tipodespesas.get(i).getCodigo(), list_tipodespesas.get(i).getDescricao()));
+            }
+        }
+        cbDespesa.getSelectionModel().clearSelection();
+        cbDespesa.getItems().clear();
+        cbDespesa.getItems().addAll(list_tipo);
     }
 }

@@ -5,6 +5,7 @@
  */
 package proj_engii.telas;
 
+import Controladora.CtrlProduto;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -16,8 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 
 /**
@@ -29,7 +28,7 @@ public class TelaOrcamentoController implements Initializable {
 
     @FXML
     private ScrollPane sub_tela;
-
+    private CtrlProduto ctrl_prod = new CtrlProduto();
     /**
      * Initializes the controller class.
      */
@@ -48,9 +47,9 @@ public class TelaOrcamentoController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaBuscaOrcamento.fxml"));
             sub_tela.setContent(root);
             
-            /*this.center(sub_tela.getViewportBounds(), root);
+            this.center(sub_tela.getViewportBounds(), root);
             sub_tela.viewportBoundsProperty().addListener((observable, oldValue, newValue) -> {this.center(newValue, root);
-            });*/
+            });
         } catch (Exception e) {
             System.out.println("Erro" + e);
             Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
@@ -86,6 +85,6 @@ public class TelaOrcamentoController implements Initializable {
         } else {
             centeredNode.setTranslateY(0);
         }
-
     }
+    
 }

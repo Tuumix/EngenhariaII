@@ -65,6 +65,7 @@ public class TelaBuscaDespesasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setCells();
+        setColors();
         cbTipo.getItems().add("Tipo");
         cbTipo.getItems().add("Descricao");
         cbTipo.getSelectionModel().select(0);
@@ -155,4 +156,8 @@ public class TelaBuscaDespesasController implements Initializable {
         return desp;
     }
 
+    private void setColors(){
+        txtNome.getStylesheets().add("/proj_engii/style.css");
+        cbTipo.getStylesheets().add("/proj_engii/style.css");
+    }
 }

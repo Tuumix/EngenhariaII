@@ -42,7 +42,7 @@ public class TelaLoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        setColors();
     }
 
     @FXML
@@ -54,7 +54,6 @@ public class TelaLoginController implements Initializable {
         } catch (Exception e) {
             System.out.println("Erro" + e);
             Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
-            a.showAndWait();
         }
     }
 
@@ -71,17 +70,29 @@ public class TelaLoginController implements Initializable {
             if (list.get(0).getNivel().equals("Patrão")) {
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Logado como Patrão!! ", ButtonType.OK);
                 a.showAndWait();
-            }
-            else{
+            } else {
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Logado como Funcionario! ", ButtonType.OK);
                 a.showAndWait();
             }
 
         }
     }
-    
-    private void setColors(){
-        txtLogin.getStylesheets().add("");
+
+    private void setColors() {
+        txtLogin.getStylesheets().add("/proj_engii/style.css");
+        txtSenha.getStylesheets().add("/proj_engii/style.css");
+    }
+
+    @FXML
+    private void btnCriar(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaCadastroFuncionario.fxml"));
+            tela.getChildren().clear();
+            tela.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+        }
     }
 
 }

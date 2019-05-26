@@ -130,7 +130,7 @@ public class Despesa {
             sql = "select * from despesa";
         } else {
             if (tipo.equals("descricao")) {
-                sql = "select * from despesa where desp_descricao like" + "'$1%'";
+                sql = "select * from despesa where desp_descricao like" + "'%$1%'";
             } else {
                 sql = "select * from despesa where desp_tipo = " + "'$1'";
             }

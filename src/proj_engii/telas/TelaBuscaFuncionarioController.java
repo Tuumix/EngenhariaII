@@ -8,7 +8,6 @@ package proj_engii.telas;
 import Controladora.CtrlFuncionario;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;

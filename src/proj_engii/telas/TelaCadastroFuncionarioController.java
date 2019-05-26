@@ -112,7 +112,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
                     if (txtSenha.getText().equals(txtConfirmSenha.getText())) {
                         ob[0] = Integer.parseInt(txtNumero.getText());
                         ob[1] = txtNome.getText();
-                        ob[2] = "";
+                        ob[2] = txtCEP.getText();
                         ob[3] = txtCPF.getText();
                         ob[4] = txtEndereco.getText();
                         ob[5] = txtCidade.getText();
@@ -193,11 +193,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
         try {
             if (validar()) {
                 if (txtSenha.getText().equals(txtConfirmSenha.getText())) {
-                    if (txtNumero.getText().isEmpty()) {
-                        ob[0] = "0";
-                    } else {
-                        ob[0] = txtNumero.getText();
-                    }
+                    ob[0] = Integer.parseInt(txtNumero.getText());
                     ob[1] = txtNome.getText();
                     ob[2] = txtCEP.getText();
                     ob[3] = txtCPF.getText();
@@ -211,9 +207,10 @@ public class TelaCadastroFuncionarioController implements Initializable {
                     ob[12] = dt_admissao.getValue().toString();
 
                     if (rd_fem.isSelected()) {
-                        ob[7] = "Feminino";
+                        ob[7] = "Feminino";//rd_fem.getText();
                     } else {
                         ob[7] = "Masculino";
+                        rd_masc.getText();
                     }
 
                     gravou = controladora_func.alterar(ob, Integer.parseInt(txtCod.getText()));
@@ -240,7 +237,15 @@ public class TelaCadastroFuncionarioController implements Initializable {
 
     @FXML
     private void btnSair(ActionEvent event) {
-        System.exit(0);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/FXMLDocument.fxml"));
+            telaCad.getChildren().clear();
+            telaCad.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            a.showAndWait();
+        }
     }
 //-----------------------------------------------------------------------------------------
 
@@ -362,7 +367,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
         cbNivel.getStylesheets().add("/proj_engii/style.css");
         txtConfirmSenha.getStylesheets().add("/proj_engii/style.css");
         dt_admissao.getStylesheets().add("/proj_engii/style.css");
-        
+
     }
 //-----------------------------------------------------------------------------------------
 
