@@ -330,6 +330,8 @@ public class TelaCadastroFuncionarioController implements Initializable {
             txtNumero.setText(func.getNumero() + "");
             txtLogin.setText(func.getLogin());
             txtTelefone.setText(func.getTelefone());
+            txtSenha.setText(func.getSenha());
+            txtConfirmSenha.setText(func.getSenha());
             txtCod.setText(func.getCodigo() + "");
             lbEstado.setText("Alterando");
         } else {

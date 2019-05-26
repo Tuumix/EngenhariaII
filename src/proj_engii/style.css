@@ -13,3 +13,8 @@
     -fx-prompt-text-fill: #c7ecee;
     -fx-text-fill: #c7ecee;
 }
+
+.table-view .table-row-cell {
+    -fx-control-inner-background:  #b2bec3;
+    -fx-control-inner-background-alt:  #dfe6e9;
+}

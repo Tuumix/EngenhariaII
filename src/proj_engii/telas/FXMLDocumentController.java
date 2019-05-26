@@ -19,19 +19,19 @@ import javafx.scene.layout.BorderPane;
 /**
  * FXML Controller class
  *
- * @author hiroshi
+ * @author Hiroshi
  */
 public class FXMLDocumentController implements Initializable {
 
     @FXML
     private BorderPane tela_principal;
-    private Parent root = null;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }
 
     @FXML
@@ -75,21 +75,12 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void btnTipoDespesas(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaTipoDespesas.fxml"));
-            tela_principal.getChildren().clear();
-            tela_principal.getChildren().add(root);
-        } catch (Exception e) {
-            System.out.println("Erro" + e);
-            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
-            a.showAndWait();
-        }
     }
 
     @FXML
     private void btnOrcamento(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaOrcamento.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaCadastrarOrcamento.fxml"));
             tela_principal.getChildren().clear();
             tela_principal.getChildren().add(root);
         } catch (Exception e) {

@@ -22,6 +22,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import proj_engii.entidade.Funcionario;
@@ -79,6 +80,7 @@ public class TelaBuscaFuncionarioController implements Initializable {
         setColor();
         cbTipo.getItems().add("Nome");
         cbTipo.getItems().add("Login");
+        cbTipo.getSelectionModel().selectFirst();
         list = ctr_func.buscar("", "");
         tabela.setItems(FXCollections.observableArrayList(list));
         f = null;
@@ -87,6 +89,7 @@ public class TelaBuscaFuncionarioController implements Initializable {
     private void setColor() {
         txtNome.getStylesheets().add("/proj_engii/style.css");
         cbTipo.getStylesheets().add("/proj_engii/style.css");
+        tabela.getStylesheets().add("/proj_engii/style.css");
     }
 
     private void setSize() {
@@ -121,13 +124,6 @@ public class TelaBuscaFuncionarioController implements Initializable {
 
     @FXML
     private void btnBuscar(ActionEvent event) {
-        if (cbTipo.getSelectionModel().getSelectedIndex() == -1 && !txtNome.getText().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Escolha um tipo a ser pesquisado!! ", ButtonType.OK);
-            a.showAndWait();
-        } else {
-            list = ctr_func.buscar(txtNome.getText(), cbTipo.getSelectionModel().getSelectedItem().toLowerCase());
-        }
-        tabela.setItems(FXCollections.observableArrayList(list));
 
     }
 
@@ -186,5 +182,16 @@ public class TelaBuscaFuncionarioController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
             a.showAndWait();
         }
+    }
+
+    @FXML
+    private void busca_lista(KeyEvent event) {
+        if (cbTipo.getSelectionModel().getSelectedIndex() == -1 && !txtNome.getText().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Escolha um tipo a ser pesquisado!! ", ButtonType.OK);
+            a.showAndWait();
+        } else {
+            list = ctr_func.buscar(txtNome.getText(), cbTipo.getSelectionModel().getSelectedItem().toLowerCase());
+        }
+        tabela.setItems(FXCollections.observableArrayList(list));
     }
 }

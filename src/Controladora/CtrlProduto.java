@@ -14,7 +14,12 @@ import proj_engii.entidade.Produto;
  */
 public class CtrlProduto {
     private Produto prod = new Produto();
+    
     public ArrayList<Produto> buscar(String descricao){
         return prod.buscar(descricao);
+    }
+    
+    public Boolean alterar(Produto p){
+        return prod.alterar(p);
     }
 }

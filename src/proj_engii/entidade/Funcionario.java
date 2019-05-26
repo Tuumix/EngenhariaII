@@ -201,9 +201,9 @@ public class Funcionario {
             sql = "select * from funcionario";
         } else {
             if (tipo.equals("nome")) {
-                sql = "select * from funcionario where func_nome like" + "'$1%'";
+                sql = "select * from funcionario where func_nome like" + "'%$1%'";
             } else {
-                sql = "select * from funcionario where func_login = " + "'$1'";
+                sql = "select * from funcionario where func_login like " + "'%$1%'";
             }
             sql = sql.replace("$1", nome);
         }

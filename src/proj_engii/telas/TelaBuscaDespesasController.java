@@ -22,6 +22,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import proj_engii.entidade.Despesa;
@@ -58,6 +59,7 @@ public class TelaBuscaDespesasController implements Initializable {
     public static Despesa desp;
     @FXML
     private TableColumn<?, ?> col_pagamento;
+    private ArrayList<Despesa> aux = new ArrayList<>();
 
     /**
      * Initializes the controller class.
@@ -81,18 +83,11 @@ public class TelaBuscaDespesasController implements Initializable {
         col_valor.setCellValueFactory(new PropertyValueFactory<>("desp_valor"));
         col_dtVencimento.setCellValueFactory(new PropertyValueFactory<>("desp_dtVencimento"));
         col_pagamento.setCellValueFactory(new PropertyValueFactory<>("desp_dtPagamento"));
-        tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        //tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     @FXML
     private void btnBuscar(ActionEvent event) {
-        if (cbTipo.getSelectionModel().getSelectedIndex() == -1 && !txtNome.getText().isEmpty()) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Escolha um tipo a ser pesquisado!! ", ButtonType.OK);
-            a.showAndWait();
-        } else {
-            list_despesa = controladora_desp.buscar(txtNome.getText(), cbTipo.getSelectionModel().getSelectedItem().toLowerCase());
-        }
-        tabela.setItems(FXCollections.observableArrayList(list_despesa));
     }
 
     @FXML
@@ -156,8 +151,32 @@ public class TelaBuscaDespesasController implements Initializable {
         return desp;
     }
 
-    private void setColors(){
+    private void setColors() {
         txtNome.getStylesheets().add("/proj_engii/style.css");
         cbTipo.getStylesheets().add("/proj_engii/style.css");
+        tabela.getStylesheets().add("/proj_engii/style.css");
+    }
+
+    @FXML
+    private void busca_filtro(KeyEvent event) {
+        Despesa p;
+        if (aux != null) {
+            aux.clear();
+        }
+        if (cbTipo.getSelectionModel().getSelectedIndex() == -1 && !txtNome.getText().isEmpty()) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Escolha um tipo a ser pesquisado!! ", ButtonType.OK);
+            a.showAndWait();
+        } else {
+            for (int i = 0; i < list_despesa.size(); i++) {
+                p = list_despesa.get(i);
+                if (p.getDesp_descricao().contains(txtNome.getText()) && cbTipo.getSelectionModel().getSelectedItem().equals("Descricao")) {
+                    aux.add(new Despesa(p.getDesp_cod(), p.getDesp_descricao(), p.getDesp_valor(), p.getDesp_tipo(), p.getDesp_dtEmissao(), p.getDesp_dtVencimento(), p.getDesp_tipocod(), p.getDesp_dtPagamento()));
+                }
+                if (p.getDesp_tipo().contains(txtNome.getText()) && cbTipo.getSelectionModel().getSelectedItem().equals("Tipo")) {
+                    aux.add(new Despesa(p.getDesp_cod(), p.getDesp_descricao(), p.getDesp_valor(), p.getDesp_tipo(), p.getDesp_dtEmissao(), p.getDesp_dtVencimento(), p.getDesp_tipocod(), p.getDesp_dtPagamento()));
+                }
+            }
+        }
+        tabela.setItems(FXCollections.observableArrayList(aux));
     }
 }

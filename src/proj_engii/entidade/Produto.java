@@ -66,10 +66,11 @@ public class Produto {
     public ArrayList<Produto> buscar(String prod) {
         try {
             String sql = "";
-            if(prod.isEmpty())
+            if (prod.isEmpty()) {
                 sql = "select * from produto";
-            else
+            } else {
                 sql = "select * from produto where prod_descricao like " + "'%$1%'";
+            }
             sql = sql.replace("$1", prod);
             System.out.println("" + sql);
 
@@ -88,6 +89,21 @@ public class Produto {
             System.out.println("Erro banco " + e);
         }
         return null;
+    }
+
+    public Boolean alterar(Produto p) {
+        String sql = "";
+        try {
+            sql = "update produto set prod_qtde = $1 where prod_cod  = " + "$2";
+            sql = sql.replace("$1", p.getQtde() + "");
+            sql = sql.replace("$2", p.getCodigo() + "");
+
+            System.out.println("" + sql);
+            return Banco.con.manipular(sql);
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 
 }

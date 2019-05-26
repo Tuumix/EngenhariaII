@@ -11,7 +11,7 @@
 <AnchorPane id="AnchorPane" fx:id="tela" prefHeight="579.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#353b48,#2f3640);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaBuscaFuncionarioController">
    <children>
       <JFXComboBox fx:id="cbTipo" focusColor="DARKSALMON" layoutX="485.0" layoutY="50.0" prefHeight="27.0" prefWidth="184.0" unFocusColor="#c7ecee" />
-      <JFXTextField fx:id="txtNome" focusColor="DARKSALMON" labelFloat="true" layoutX="143.0" layoutY="50.0" prefHeight="27.0" prefWidth="325.0" promptText="Nome" unFocusColor="#c7ecee" />
+      <JFXTextField fx:id="txtNome" focusColor="DARKSALMON" labelFloat="true" layoutX="143.0" layoutY="50.0" onKeyReleased="#busca_lista" prefHeight="27.0" prefWidth="325.0" promptText="Nome" unFocusColor="#c7ecee" />
       <Button layoutX="682.0" layoutY="50.0" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Pesquisar" textFill="#c7ecee" />
       <TableView fx:id="tabela" layoutX="14.0" layoutY="92.0" prefHeight="435.0" prefWidth="762.0" style="-fx-background-color: linear-gradient(#535c68,#95afc0);">
         <columns>
