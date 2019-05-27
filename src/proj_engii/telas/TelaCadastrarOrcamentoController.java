@@ -6,6 +6,7 @@
 package proj_engii.telas;
 
 import Controladora.CtrlFuncionario;
+import Controladora.CtrlOrcamento;
 import Controladora.CtrlProduto;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -18,11 +19,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import proj_engii.bancoc.Banco;
 import proj_engii.entidade.Funcionario;
 import proj_engii.entidade.Produto;
 
@@ -61,10 +64,16 @@ public class TelaCadastrarOrcamentoController implements Initializable {
     private TableColumn<?, ?> col_orccod;
     private CtrlFuncionario ctrl_func = new CtrlFuncionario();
     private CtrlProduto ctrl_prod = new CtrlProduto();
+    private CtrlOrcamento ctrl_orc = new CtrlOrcamento();
     private ArrayList<Funcionario> list_func = new ArrayList<>();
     private ArrayList<Produto> list_prod = new ArrayList<>();
     private ArrayList<Produto> aux = new ArrayList<>();
     private ArrayList<Produto> prod_orc = new ArrayList<>();
+    private Object[] ob = new Object[10];
+    @FXML
+    private Label txt_total;
+    private Double total;
+    private Produto p;
 
     /**
      * Initializes the controller class.
@@ -78,13 +87,13 @@ public class TelaCadastrarOrcamentoController implements Initializable {
 
         list_prod = ctrl_prod.buscar("");
         tab_prod.setItems(FXCollections.observableArrayList(list_prod));
-        //tab_orc.getItems().add(new Produto(21, "asdsa", 2.3, 3));
     }
 
     @FXML
     private void btnAdd(ActionEvent event) {
         Produto p = new Produto();
         Boolean achou = false;
+        total = 0.0;
         if (tab_prod.getSelectionModel().getSelectedIndex() != -1) {
             p = tab_prod.getSelectionModel().getSelectedItem();
             if (Integer.parseInt(txt_quantidade.getText()) <= p.getQtde() && Integer.parseInt(txt_quantidade.getText()) > 0 && !txt_quantidade.getText().isEmpty()) {
@@ -116,6 +125,11 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um produto pelo menos!", ButtonType.OK);
             a.showAndWait();
         }
+        for (int i = 0; i < prod_orc.size(); i++) {
+            total += prod_orc.get(i).getValor() * prod_orc.get(i).getQtde();
+        }
+        //System.out.println("" + total);
+        txt_total.setText(total + "");
     }
 
     private void setCells() {
@@ -166,11 +180,32 @@ public class TelaCadastrarOrcamentoController implements Initializable {
 
     @FXML
     private void btnGravar(ActionEvent event) {
+        Boolean certo = true;
+        int ult_orc;
         try {
-            for (int i = 0; i < list_prod.size(); i++) {
-                if (ctrl_prod.alterar(list_prod.get(i))) {
-                    System.out.println("ok");
+            ob[0] = cb_func.getSelectionModel().getSelectedItem().toString();
+            ob[1] = total;
+
+            if (ctrl_orc.salvar(ob)) {
+                for (int i = 0; i < list_prod.size(); i++) { //atualizando produto
+                    if (!ctrl_prod.alterar(list_prod.get(i))) {
+                        certo = false;
+                    }
                 }
+                ult_orc = Banco.con.getMaxPK("orcamento", "orc_cod");
+
+                for (int j = 0; j < prod_orc.size(); j++) {
+                    p = prod_orc.get(j);
+                    if (ctrl_orc.salvar_itens(ult_orc, p.getCodigo(), p.getQtde())) {
+                        System.out.println("ok");
+                    }
+                }
+                if (!certo) {
+                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Orcamento cadastrado!", ButtonType.OK);
+                    a.showAndWait();
+                }
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Orcamento cadastrado!", ButtonType.OK);
+                a.showAndWait();
             }
         } catch (Exception e) {
 
