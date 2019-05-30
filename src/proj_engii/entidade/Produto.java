@@ -72,11 +72,9 @@ public class Produto {
                 sql = "select * from produto where prod_descricao like " + "'%$1%'";
             }
             sql = sql.replace("$1", prod);
-            System.out.println("" + sql);
-
             ResultSet rs;
             ArrayList<Produto> list = new ArrayList<>();
-            System.out.println("" + sql);
+            
             try {
                 rs = Banco.con.consultar(sql);
                 while (rs.next()) {

@@ -15,7 +15,9 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -25,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import proj_engii.bancoc.Banco;
 import proj_engii.entidade.Funcionario;
 import proj_engii.entidade.Produto;
@@ -72,8 +75,10 @@ public class TelaCadastrarOrcamentoController implements Initializable {
     private Object[] ob = new Object[10];
     @FXML
     private Label txt_total;
-    private Double total;
+    private Double total = 0.0;
     private Produto p;
+    @FXML
+    private AnchorPane tela;
 
     /**
      * Initializes the controller class.
@@ -158,7 +163,21 @@ public class TelaCadastrarOrcamentoController implements Initializable {
 
     @FXML
     private void btnRet(ActionEvent event) {
+        int cod, qtde, i = 0;
+        Produto p;
 
+        while (tab_orc.getSelectionModel().getSelectedItem().getCodigo() != prod_orc.get(i).getCodigo()) {
+            i++;
+        }
+        if (i < prod_orc.size()) {
+            cod = tab_orc.getSelectionModel().getSelectedItem().getCodigo();
+            qtde = tab_orc.getSelectionModel().getSelectedItem().getQtde();
+            total -= qtde * tab_orc.getSelectionModel().getSelectedItem().getValor();
+            prod_orc.remove(i);
+        }
+        txt_total.setText(total + "");
+        tab_orc.getItems().clear();
+        tab_orc.getItems().addAll(prod_orc);
     }
 
     @FXML
@@ -183,32 +202,75 @@ public class TelaCadastrarOrcamentoController implements Initializable {
         Boolean certo = true;
         int ult_orc;
         try {
-            ob[0] = cb_func.getSelectionModel().getSelectedItem().toString();
-            ob[1] = total;
+            if (validacao()) {
+                ob[0] = cb_func.getSelectionModel().getSelectedItem().toString();
+                ob[1] = total;
+                ob[2] = "Juvenildo";
+                if (ctrl_orc.salvar(ob)) {
+                    ult_orc = Banco.con.getMaxPK("orcamento", "orc_cod");
 
-            if (ctrl_orc.salvar(ob)) {
-                for (int i = 0; i < list_prod.size(); i++) { //atualizando produto
-                    if (!ctrl_prod.alterar(list_prod.get(i))) {
-                        certo = false;
+                    for (int j = 0; j < prod_orc.size(); j++) {
+                        p = prod_orc.get(j);
+                        if (ctrl_orc.salvar_itens(ult_orc, p.getCodigo(), p.getQtde(), p.getDescricao())) {
+                            //certo = false;
+                        } else {
+                            certo = false;
+                        }
+                    }
+                    if (certo) {
+                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Orcamento cadastrado!", ButtonType.OK);
+                        a.showAndWait();
+                    } else {
+                        Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao cadastrar orçamento!", ButtonType.OK);
+                        a.showAndWait();
                     }
                 }
-                ult_orc = Banco.con.getMaxPK("orcamento", "orc_cod");
-
-                for (int j = 0; j < prod_orc.size(); j++) {
-                    p = prod_orc.get(j);
-                    if (ctrl_orc.salvar_itens(ult_orc, p.getCodigo(), p.getQtde())) {
-                        System.out.println("ok");
-                    }
-                }
-                if (!certo) {
-                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Orcamento cadastrado!", ButtonType.OK);
-                    a.showAndWait();
-                }
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Orcamento cadastrado!", ButtonType.OK);
-                a.showAndWait();
             }
+
         } catch (Exception e) {
 
+        }
+    }
+
+    public Boolean validacao() {
+        Boolean certo = true;
+        if (cb_func.getSelectionModel().getSelectedIndex() == -1) {
+            certo = false;
+            Alert a = new Alert(Alert.AlertType.ERROR, "Selecione o funcionário!", ButtonType.OK);
+            a.showAndWait();
+        }
+
+        if (tab_orc.getItems().size() == 0) {
+            certo = false;
+            Alert a = new Alert(Alert.AlertType.ERROR, "Insira os produtos do orçamento!", ButtonType.OK);
+            a.showAndWait();
+        }
+        return certo;
+    }
+
+    @FXML
+    private void btnBuscar(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaBuscaOrcamento.fxml"));
+            tela.getChildren().clear();
+            tela.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            a.showAndWait();
+        }
+    }
+
+    @FXML
+    private void btnSair(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/FXMLDocument.fxml"));
+            tela.getChildren().clear();
+            tela.getChildren().add(root);
+        } catch (Exception e) {
+            System.out.println("Erro" + e);
+            Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            a.showAndWait();
         }
     }
 }

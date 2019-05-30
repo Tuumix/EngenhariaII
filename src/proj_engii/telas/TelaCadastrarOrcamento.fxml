@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -9,10 +10,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="539.0" prefWidth="752.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaCadastrarOrcamentoController">
+<AnchorPane id="AnchorPane" fx:id="tela" prefHeight="539.0" prefWidth="752.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaCadastrarOrcamentoController">
    <children>
-      <ComboBox fx:id="cb_func" layoutX="26.0" layoutY="32.0" prefWidth="150.0" promptText="Funcionário" style="-fx-background-color: #576574;" />
-      <TableView fx:id="tab_prod" layoutX="26.0" layoutY="120.0" prefHeight="340.0" prefWidth="310.0">
+      <ComboBox fx:id="cb_func" layoutX="26.0" layoutY="32.0" prefWidth="150.0" promptText="Funcionário" style="-fx-background-color: #c7ecee;" />
+      <TableView fx:id="tab_prod" layoutX="21.0" layoutY="120.0" prefHeight="340.0" prefWidth="310.0">
         <columns>
             <TableColumn fx:id="col_codigo" prefWidth="75.0" text="Código" />
           <TableColumn fx:id="col_nome" prefWidth="75.0" text="Nome" />
@@ -20,7 +21,7 @@
             <TableColumn fx:id="col_qtd" prefWidth="75.0" text="Quantidade" />
         </columns>
       </TableView>
-      <TableView fx:id="tab_orc" layoutX="421.0" layoutY="120.0" prefHeight="340.0" prefWidth="310.0">
+      <TableView fx:id="tab_orc" layoutX="428.0" layoutY="120.0" prefHeight="340.0" prefWidth="310.0">
         <columns>
             <TableColumn fx:id="col_orccod" prefWidth="75.0" text="Código" />
           <TableColumn fx:id="col_orcnome" prefWidth="75.0" text="Nome" />
@@ -28,15 +29,27 @@
             <TableColumn fx:id="col_orcqtd" prefWidth="75.0" text="Quantidade" />
         </columns>
       </TableView>
-      <JFXTextField fx:id="txt_produto" focusColor="#8395a7" labelFloat="true" layoutX="26.0" layoutY="80.0" onKeyReleased="#busca_prod" prefHeight="27.0" prefWidth="228.0" promptText="Produto" unFocusColor="#8395a7" />
+      <JFXTextField fx:id="txt_produto" focusColor="PERU" labelFloat="true" layoutX="26.0" layoutY="80.0" onKeyReleased="#busca_prod" prefHeight="27.0" prefWidth="228.0" promptText="Produto" unFocusColor="#c7ecee" />
       <JFXButton layoutX="363.0" layoutY="235.0" onAction="#btnAdd" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="+" textFill="#c7ecee" />
       <JFXButton layoutX="446.0" layoutY="44.0" text="-" />
-      <JFXTextField fx:id="txt_quantidade" layoutX="341.0" layoutY="172.0" prefHeight="27.0" prefWidth="71.0" promptText="Quantidade" unFocusColor="#8395a7" />
+      <JFXTextField fx:id="txt_quantidade" layoutX="341.0" layoutY="172.0" prefHeight="27.0" prefWidth="71.0" promptText="Quantidade" unFocusColor="#c7ecee" />
       <JFXButton layoutX="364.0" layoutY="292.0" onAction="#btnRet" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="-" textFill="#c7ecee" />
       <HBox layoutX="-193.0" layoutY="-36.0" prefHeight="100.0" prefWidth="200.0" />
-      <HBox layoutY="497.0" prefHeight="56.0" prefWidth="752.0">
+      <HBox layoutY="509.0" prefHeight="44.0" prefWidth="752.0" style="-fx-border-color: #c7ecee;">
          <children>
-            <JFXButton onAction="#btnGravar" text="Gravar" textFill="WHITE" />
+            <JFXButton onAction="#btnGravar" text="Gravar" textFill="#c7ecee">
+               <HBox.margin>
+                  <Insets left="300.0" right="20.0" top="10.0" />
+               </HBox.margin></JFXButton>
+            <JFXButton onAction="#btnBuscar" text="Buscar" textFill="#c7ecee">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></JFXButton>
+            <JFXButton onAction="#btnSair" text="Sair" textFill="#c7ecee">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </JFXButton>
          </children>
       </HBox>
       <Label layoutX="639.0" layoutY="469.0" text="Total :" textFill="#c7ecee" />

@@ -85,9 +85,6 @@ public class TelaLançarDespesasController implements Initializable {
         despesa = TelaBuscaDespesasController.getDespesa();
         list_tipodespesas = ctrl_tipodespesa.buscar("");
         cbDespesa.getItems().addAll(list_tipodespesas);
-
-        System.out.println("" + cbDespesa.getItems().get(0).getDescricao());
-        //sub_tela.setOpacity(0.2);
         setColors();
         if (despesa != null) {
             cod = despesa.getDesp_cod();
@@ -107,8 +104,6 @@ public class TelaLançarDespesasController implements Initializable {
             inicializa_campos(true);
             inicializa_botoes(false, true, false, false, true);
         }
-        //cbDespesa.setEditable(true);
-
     }
 
     @FXML

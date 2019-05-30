@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="tela" prefHeight="539.0" prefWidth="752.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaBuscaOrcamentoController">
+   <children>
+      <TextField fx:id="txt_tipo" layoutX="24.0" layoutY="42.0" onKeyReleased="#search" />
+      <TableView fx:id="tabela_orcamento" layoutX="24.0" layoutY="86.0" onMouseClicked="#selected" prefHeight="422.0" prefWidth="320.0">
+        <columns>
+          <TableColumn fx:id="col_cod" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="col_cli" prefWidth="75.0" text="Cliente" />
+            <TableColumn fx:id="col_func" prefWidth="75.0" text="Funcionário" />
+            <TableColumn fx:id="col_total" prefWidth="75.0" text="Total" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tabela_itens" layoutX="367.0" layoutY="86.0" prefHeight="422.0" prefWidth="361.0">
+        <columns>
+          <TableColumn fx:id="col_codI" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="col_prodI" prefWidth="75.0" text="Produto" />
+            <TableColumn fx:id="col_codO" prefWidth="75.0" text="Códigor Orçamento" />
+            <TableColumn fx:id="col_qtdeI" prefWidth="75.0" text="Quantidade" />
+        </columns>
+      </TableView>
+      <JFXButton layoutX="396.0" layoutY="42.0" onAction="#btnExcluir" text="Excluir" textFill="#c7ecee" />
+      <JFXButton layoutX="455.0" layoutY="42.0" onAction="#btnSair" text="Sair" textFill="#c7ecee" />
+      <ComboBox fx:id="cbPesquisa" layoutX="204.0" layoutY="42.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
