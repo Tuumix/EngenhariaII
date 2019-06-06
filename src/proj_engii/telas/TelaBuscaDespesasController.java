@@ -7,6 +7,7 @@ package proj_engii.telas;
 
 import Controladora.CtrlDespesa;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ArrayList;
@@ -60,6 +61,10 @@ public class TelaBuscaDespesasController implements Initializable {
     @FXML
     private TableColumn<?, ?> col_pagamento;
     private ArrayList<Despesa> aux = new ArrayList<>();
+    @FXML
+    private JFXDatePicker data1;
+    @FXML
+    private JFXDatePicker data2;
 
     /**
      * Initializes the controller class.
@@ -83,11 +88,12 @@ public class TelaBuscaDespesasController implements Initializable {
         col_valor.setCellValueFactory(new PropertyValueFactory<>("desp_valor"));
         col_dtVencimento.setCellValueFactory(new PropertyValueFactory<>("desp_dtVencimento"));
         col_pagamento.setCellValueFactory(new PropertyValueFactory<>("desp_dtPagamento"));
-        //tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     @FXML
     private void btnBuscar(ActionEvent event) {
+        System.out.println(""+data1.getValue().toString());
+        System.out.println(""+data2.getValue().toString());
     }
 
     @FXML
@@ -155,6 +161,8 @@ public class TelaBuscaDespesasController implements Initializable {
         txtNome.getStylesheets().add("/proj_engii/style.css");
         cbTipo.getStylesheets().add("/proj_engii/style.css");
         tabela.getStylesheets().add("/proj_engii/style.css");
+        data1.getStylesheets().add("/proj_engii/style.css");
+        data2.getStylesheets().add("/proj_engii/style.css");
     }
 
     @FXML

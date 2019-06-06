@@ -100,7 +100,7 @@ public class TelaCadastrarOrcamentoController implements Initializable {
 
         if (tab_prod.getSelectionModel().getSelectedIndex() != -1) {
             p = tab_prod.getSelectionModel().getSelectedItem();
-            if (!txt_quantidade.getText().isEmpty() && p.getQtde() > Integer.parseInt(txt_quantidade.getText()) && Integer.parseInt(txt_quantidade.getText()) != 0/*Integer.parseInt(txt_quantidade.getText()) <= p.getQtde() && Integer.parseInt(txt_quantidade.getText()) > 0 && !txt_quantidade.getText().isEmpty()*/) {
+            if (!txt_quantidade.getText().isEmpty() && p.getQtde() >= Integer.parseInt(txt_quantidade.getText()) && Integer.parseInt(txt_quantidade.getText()) != 0) {
                 if (prod_orc.isEmpty()) {
                     prod_orc.add(new Produto(p.getCodigo(), p.getDescricao(), p.getValor(), Integer.parseInt(txt_quantidade.getText())));
                     list_prod.get(tab_prod.getSelectionModel().getSelectedIndex()).setQtde(p.getQtde() - Integer.parseInt(txt_quantidade.getText()));

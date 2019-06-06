@@ -278,6 +278,7 @@ public class TelaLançarDespesasController implements Initializable {
         dtVencimento.getStylesheets().add("/proj_engii/style.css");
         dtPagamento.getStylesheets().add("/proj_engii/style.css");
         cbDespesa.getStylesheets().add("/proj_engii/style.css");
+        txtDespesa.getStylesheets().add("/proj_engii/style.css");
     }
 
     @FXML
