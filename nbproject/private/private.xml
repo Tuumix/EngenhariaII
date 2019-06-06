@@ -3,23 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/entidade/Produto.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaLançarDespesasController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/Controladora/ItensOrcamento.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaBuscaDespesasController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaCadastroFuncionarioController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/Controladora/CtrlOrcamento.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/FXMLDocumentController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaCadastrarOrcamentoController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaBuscaOrcamento.fxml</file>
             <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaCadastrarOrcamento.fxml</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaBuscaFuncionarioController.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaCadastroFuncionario.fxml</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/style.css</file>
+            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaLançarDespesasController.java</file>
+            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaLançarDespesas.fxml</file>
+            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaBuscaDespesasController.java</file>
             <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaBuscaOrcamentoController.java</file>
+            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/Controladora/CtrlOrcamento.java</file>
             <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/entidade/Orcamento.java</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/FXMLDocument.fxml</file>
-            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/entidade/Despesa.java</file>
+            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/entidade/ItensOrcamento.java</file>
+            <file>file:/Users/hiroshi/Desktop/EngenhariaII/EngenhariaII/src/proj_engii/telas/TelaCadastrarOrcamentoController.java</file>
         </group>
     </open-files>
 </project-private>

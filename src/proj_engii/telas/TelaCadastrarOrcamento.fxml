@@ -23,7 +23,6 @@
       </TableView>
       <TableView fx:id="tab_orc" layoutX="428.0" layoutY="120.0" prefHeight="340.0" prefWidth="310.0">
         <columns>
-            <TableColumn fx:id="col_orccod" prefWidth="75.0" text="Código" />
           <TableColumn fx:id="col_orcnome" prefWidth="75.0" text="Nome" />
           <TableColumn fx:id="col_orcval" prefWidth="75.0" text="Valor" />
             <TableColumn fx:id="col_orcqtd" prefWidth="75.0" text="Quantidade" />
@@ -34,8 +33,7 @@
       <JFXButton layoutX="446.0" layoutY="44.0" text="-" />
       <JFXTextField fx:id="txt_quantidade" layoutX="341.0" layoutY="172.0" prefHeight="27.0" prefWidth="71.0" promptText="Quantidade" unFocusColor="#c7ecee" />
       <JFXButton layoutX="364.0" layoutY="292.0" onAction="#btnRet" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="-" textFill="#c7ecee" />
-      <HBox layoutX="-193.0" layoutY="-36.0" prefHeight="100.0" prefWidth="200.0" />
-      <HBox layoutY="509.0" prefHeight="44.0" prefWidth="752.0" style="-fx-border-color: #c7ecee;">
+      <HBox layoutY="525.0" prefHeight="50.0" prefWidth="792.0" style="-fx-border-color: #c7ecee;">
          <children>
             <JFXButton onAction="#btnGravar" text="Gravar" textFill="#c7ecee">
                <HBox.margin>

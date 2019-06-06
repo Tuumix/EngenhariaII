@@ -76,16 +76,19 @@ public class TelaLançarDespesasController implements Initializable {
     @FXML
     private Label lbEstado;
     private LocalDate local;
+    @FXML
+    private JFXTextField txtDespesa;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        despesa = TelaBuscaDespesasController.getDespesa();
         list_tipodespesas = ctrl_tipodespesa.buscar("");
         cbDespesa.getItems().addAll(list_tipodespesas);
         setColors();
+        if(TelaBuscaDespesasController.getDespesa() != null)
+            despesa = TelaBuscaDespesasController.getDespesa();
         if (despesa != null) {
             cod = despesa.getDesp_cod();
             txtDescricao.setText(despesa.getDesp_descricao());
@@ -93,11 +96,6 @@ public class TelaLançarDespesasController implements Initializable {
             dtEmissao.setValue(local.parse(despesa.getDesp_dtEmissao()));
             dtVencimento.setValue(local.parse(despesa.getDesp_dtEmissao()));
             dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
-            if (despesa.getDesp_dtPagamento().equals("1900-01-01")) {
-                dtPagamento.setValue(local.parse("1900-01-01"));
-            } else {
-                dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
-            }
             inicializa_campos(false);
             inicializa_botoes(true, true, false, false, false);
         } else {
@@ -124,7 +122,7 @@ public class TelaLançarDespesasController implements Initializable {
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
-                System.out.println(""+ob[5] + ob[2]);
+                System.out.println("" + ob[5] + ob[2]);
                 if (dtPagamento.getValue() == null) {
                     ob[6] = "1900-01-01";
                 } else {
@@ -284,15 +282,20 @@ public class TelaLançarDespesasController implements Initializable {
 
     @FXML
     private void btn_buscadesp(KeyEvent event) {
-        ArrayList<Tipo_Despesas> list_tipo = new ArrayList<>();
-        System.out.println("" + cbDespesa.getEditor().getText());
+    }
 
+    @FXML
+    private void busca_desp_txt(KeyEvent event) {
+        ArrayList<Tipo_Despesas> list_tipo = new ArrayList<>();
+        
+        if(list_tipo != null)
+            list_tipo.clear();
+        
         for (int i = 0; i < list_tipodespesas.size(); i++) {
-            if (list_tipodespesas.get(i).getDescricao().contains(cbDespesa.getEditor().getText())) {
+            if (list_tipodespesas.get(i).getDescricao().contains(txtDespesa.getText())) {
                 list_tipo.add(new Tipo_Despesas(list_tipodespesas.get(i).getCodigo(), list_tipodespesas.get(i).getDescricao()));
             }
         }
-        cbDespesa.getSelectionModel().clearSelection();
         cbDespesa.getItems().clear();
         cbDespesa.getItems().addAll(list_tipo);
     }

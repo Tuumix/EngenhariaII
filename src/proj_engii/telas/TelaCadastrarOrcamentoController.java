@@ -63,8 +63,6 @@ public class TelaCadastrarOrcamentoController implements Initializable {
     private TextField txt_quantidade;
     @FXML
     private TableColumn<?, ?> col_codigo;
-    @FXML
-    private TableColumn<?, ?> col_orccod;
     private CtrlFuncionario ctrl_func = new CtrlFuncionario();
     private CtrlProduto ctrl_prod = new CtrlProduto();
     private CtrlOrcamento ctrl_orc = new CtrlOrcamento();
@@ -99,9 +97,10 @@ public class TelaCadastrarOrcamentoController implements Initializable {
         Produto p = new Produto();
         Boolean achou = false;
         total = 0.0;
+
         if (tab_prod.getSelectionModel().getSelectedIndex() != -1) {
             p = tab_prod.getSelectionModel().getSelectedItem();
-            if (Integer.parseInt(txt_quantidade.getText()) <= p.getQtde() && Integer.parseInt(txt_quantidade.getText()) > 0 && !txt_quantidade.getText().isEmpty()) {
+            if (!txt_quantidade.getText().isEmpty() && p.getQtde() > Integer.parseInt(txt_quantidade.getText()) && Integer.parseInt(txt_quantidade.getText()) != 0/*Integer.parseInt(txt_quantidade.getText()) <= p.getQtde() && Integer.parseInt(txt_quantidade.getText()) > 0 && !txt_quantidade.getText().isEmpty()*/) {
                 if (prod_orc.isEmpty()) {
                     prod_orc.add(new Produto(p.getCodigo(), p.getDescricao(), p.getValor(), Integer.parseInt(txt_quantidade.getText())));
                     list_prod.get(tab_prod.getSelectionModel().getSelectedIndex()).setQtde(p.getQtde() - Integer.parseInt(txt_quantidade.getText()));
@@ -130,10 +129,10 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um produto pelo menos!", ButtonType.OK);
             a.showAndWait();
         }
+
         for (int i = 0; i < prod_orc.size(); i++) {
-            total += prod_orc.get(i).getValor() * prod_orc.get(i).getQtde();
+            total += Math.round(prod_orc.get(i).getValor() * prod_orc.get(i).getQtde());
         }
-        //System.out.println("" + total);
         txt_total.setText(total + "");
     }
 
@@ -144,7 +143,6 @@ public class TelaCadastrarOrcamentoController implements Initializable {
         col_qtd.setCellValueFactory(new PropertyValueFactory<>("qtde"));
         col_valor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         //------------------------------------------------------------------------- Orçamento
-        col_orccod.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         col_orcnome.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         col_orcqtd.setCellValueFactory(new PropertyValueFactory<>("qtde"));
         col_orcval.setCellValueFactory(new PropertyValueFactory<>("valor"));
@@ -172,12 +170,26 @@ public class TelaCadastrarOrcamentoController implements Initializable {
         if (i < prod_orc.size()) {
             cod = tab_orc.getSelectionModel().getSelectedItem().getCodigo();
             qtde = tab_orc.getSelectionModel().getSelectedItem().getQtde();
-            total -= qtde * tab_orc.getSelectionModel().getSelectedItem().getValor();
+            atualiza_produtos(cod, qtde);
+            total -= (qtde * Math.round(tab_orc.getSelectionModel().getSelectedItem().getValor()));
             prod_orc.remove(i);
         }
         txt_total.setText(total + "");
         tab_orc.getItems().clear();
         tab_orc.getItems().addAll(prod_orc);
+    }
+
+    private void atualiza_produtos(int cod, int qtde) {
+        int i = 0;
+        while (i < list_prod.size() && list_prod.get(i).getCodigo() != cod) {
+            i++;
+        }
+        if (i < list_prod.size()) {
+            list_prod.get(i).setQtde(list_prod.get(i).getQtde() + qtde);
+        }
+
+        tab_prod.getItems().clear();
+        tab_prod.getItems().addAll(list_prod);
     }
 
     @FXML
@@ -234,6 +246,7 @@ public class TelaCadastrarOrcamentoController implements Initializable {
 
     public Boolean validacao() {
         Boolean certo = true;
+        
         if (cb_func.getSelectionModel().getSelectedIndex() == -1) {
             certo = false;
             Alert a = new Alert(Alert.AlertType.ERROR, "Selecione o funcionário!", ButtonType.OK);
@@ -272,5 +285,15 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
             a.showAndWait();
         }
+    }
+
+    private Boolean valida_add() {
+        Boolean certo = true;
+        if (cb_func.getSelectionModel().getSelectedIndex() == -1) {
+            certo = false;
+            Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um funcionário! ", ButtonType.OK);
+            a.showAndWait();
+        }
+        return certo;
     }
 }
