@@ -101,12 +101,6 @@ public class ItensOrcamento {
         String sql = "";
         sql = "select * from itens_orc where orc_cod_fk = " + cod;
 
-        /*if () {
-            sql = "select * from itens_orc";
-        } else {
-
-        }*/
-        System.out.println(""+sql);
         ResultSet rs;
         ArrayList<ItensOrcamento> list = new ArrayList<>();
 

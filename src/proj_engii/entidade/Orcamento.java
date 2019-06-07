@@ -97,7 +97,6 @@ public class Orcamento {
             sql = sql.replace("$1", nome);
 
         }
-        System.out.println(""+sql);
         ResultSet rs;
         ArrayList<Orcamento> list = new ArrayList<>();
 
@@ -118,7 +117,6 @@ public class Orcamento {
     public Boolean delete(int cod) {
         String sql = "";
         sql = "delete from orcamento where orc_cod = " + cod;
-        System.out.println(""+sql);
         return Banco.con.manipular(sql);
     }
 }

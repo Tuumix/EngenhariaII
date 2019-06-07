@@ -92,8 +92,8 @@ public class TelaBuscaDespesasController implements Initializable {
 
     @FXML
     private void btnBuscar(ActionEvent event) {
-        System.out.println(""+data1.getValue().toString());
-        System.out.println(""+data2.getValue().toString());
+        aux = controladora_desp.between_dates(data1.getValue().toString(), data2.getValue().toString());
+        tabela.setItems(FXCollections.observableArrayList(aux));
     }
 
     @FXML

@@ -116,7 +116,6 @@ public class Despesa {
             sql = sql.replace("$6", desp.getDesp_tipocod()+"");
             sql = sql.replace("$7", desp.getDesp_dtPagamento());
 
-            System.out.println("" + sql);
             return Banco.con.manipular(sql);
         } catch (Exception e) {
             System.out.println("Erro banco " + e);
@@ -136,7 +135,6 @@ public class Despesa {
             }
         }
         sql = sql.replace("$1", nome);
-        System.out.println("" + sql);
         ResultSet rs;
         ArrayList<Despesa> list = new ArrayList<>();
 
@@ -155,7 +153,7 @@ public class Despesa {
     public Boolean excluir(int codigo) {
         String sql = "delete from despesa where desp_codigo = " + "'$1'";
         sql = sql.replace("$1", codigo + "");
-        System.out.println("" + sql);
+
         return Banco.con.manipular(sql);
     }
 
@@ -170,7 +168,27 @@ public class Despesa {
         sql = sql.replace("$5", desp.desp_tipo + "");
         sql = sql.replace("$6", desp.desp_cod + "");
         sql = sql.replace("$7", desp.desp_tipocod+"");
-        System.out.println(""+sql);
+        
         return Banco.con.manipular(sql);
+    }
+    
+    public ArrayList<Despesa> getBetweenDates(String date1, String date2){
+        String sql = "select * from despesa where desp_dtvencimento between " + "'$1'" + " and " + "'$2'";
+        sql = sql.replace("$1", date1);
+        sql = sql.replace("$2", date2);
+        
+        ResultSet rs;
+        ArrayList<Despesa> list = new ArrayList<>();
+
+        try {
+            rs = Banco.con.consultar(sql);
+            while (rs.next()) {
+                list.add(new Despesa(rs.getInt("desp_codigo"), rs.getString("desp_descricao"), rs.getDouble("desp_valor"),
+                        rs.getString("desp_tipo"), rs.getString("desp_dtEmissao"), rs.getString("desp_dtVencimento"), rs.getInt("desp_tipocod"), rs.getString("desp_dtpagamento")));
+            }
+        } catch (Exception er) {
+        }
+        
+        return list;
     }
 }

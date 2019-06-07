@@ -40,4 +40,8 @@ public class CtrlDespesa {
     public Boolean alterar(Despesa desp){
         return desp.alterar(desp);
     }
+    
+    public ArrayList<Despesa> between_dates(String date1, String date2){
+        return desp.getBetweenDates(date1, date2);
+    }
 }
