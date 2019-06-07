@@ -129,10 +129,7 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um produto pelo menos!", ButtonType.OK);
             a.showAndWait();
         }
-
-        for (int i = 0; i < prod_orc.size(); i++) {
-            total += Math.round(prod_orc.get(i).getValor() * prod_orc.get(i).getQtde());
-        }
+        total = getTotal();
         txt_total.setText(total + "");
     }
 
@@ -171,10 +168,10 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             cod = tab_orc.getSelectionModel().getSelectedItem().getCodigo();
             qtde = tab_orc.getSelectionModel().getSelectedItem().getQtde();
             atualiza_produtos(cod, qtde);
-            total -= (qtde * Math.round(tab_orc.getSelectionModel().getSelectedItem().getValor()));
             prod_orc.remove(i);
         }
-        txt_total.setText(total + "");
+        total = getTotal();
+        txt_total.setText(total+"");
         tab_orc.getItems().clear();
         tab_orc.getItems().addAll(prod_orc);
     }
@@ -246,7 +243,7 @@ public class TelaCadastrarOrcamentoController implements Initializable {
 
     public Boolean validacao() {
         Boolean certo = true;
-        
+
         if (cb_func.getSelectionModel().getSelectedIndex() == -1) {
             certo = false;
             Alert a = new Alert(Alert.AlertType.ERROR, "Selecione o funcionário!", ButtonType.OK);
@@ -295,5 +292,13 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             a.showAndWait();
         }
         return certo;
+    }
+
+    private double getTotal() {
+        total = 0.0;
+        for (int i = 0; i < prod_orc.size(); i++) {
+            total += prod_orc.get(i).getValor() * prod_orc.get(i).getQtde();
+        }
+        return total;
     }
 }
