@@ -32,7 +32,7 @@
                   <JFXButton fx:id="botao_limpar" layoutX="268.0" layoutY="183.0" onAction="#btnLimpar" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Limpar" textFill="#c8d6e5" />
                   <JFXDatePicker fx:id="dtPagamento" defaultColor="#c7ecee" layoutX="33.0" layoutY="183.0" promptText="Data de Pagamento" />
                   <JFXTextField fx:id="txtDescricao" focusColor="PERU" labelFloat="true" layoutX="33.0" layoutY="35.0" prefHeight="27.0" prefWidth="220.0" promptText="Descricao" unFocusColor="#c7ecee" />
-                  <JFXTextField fx:id="txtValor" focusColor="PERU" labelFloat="true" layoutX="33.0" layoutY="105.0" promptText="Valor" unFocusColor="#c7ecee" />
+                  <JFXTextField fx:id="txtValor" focusColor="PERU" labelFloat="true" layoutX="33.0" layoutY="105.0" onKeyReleased="#val_mask" promptText="Valor" unFocusColor="#c7ecee" />
                   <AnchorPane layoutX="268.0" layoutY="26.0" prefHeight="46.0" prefWidth="415.0" style="-fx-border-color: #c7ecee;">
                      <children>
                         <JFXComboBox fx:id="cbDespesa" focusColor="PERU" labelFloat="true" layoutX="215.0" layoutY="10.0" onKeyReleased="#btn_buscadesp" prefHeight="27.0" prefWidth="182.0" promptText="Despesas" unFocusColor="#c7ecee" />

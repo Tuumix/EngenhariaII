@@ -84,18 +84,29 @@ public class TelaLançarDespesasController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        int i;
         list_tipodespesas = ctrl_tipodespesa.buscar("");
         cbDespesa.getItems().addAll(list_tipodespesas);
         setColors();
-        if(TelaBuscaDespesasController.getDespesa() != null)
+        if (TelaBuscaDespesasController.getDespesa() != null) {
             despesa = TelaBuscaDespesasController.getDespesa();
+        }
         if (despesa != null) {
+            i = 0;
             cod = despesa.getDesp_cod();
             txtDescricao.setText(despesa.getDesp_descricao());
             txtValor.setText(despesa.getDesp_valor() + "");
             dtEmissao.setValue(local.parse(despesa.getDesp_dtEmissao()));
             dtVencimento.setValue(local.parse(despesa.getDesp_dtEmissao()));
-            dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
+            if (!despesa.getDesp_dtPagamento().equals("NULL")) {
+                dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
+            } else {
+                dtPagamento.setValue(null);
+            }
+            while (!cbDespesa.getItems().get(i).getDescricao().equals(despesa.getDesp_tipo())) {
+                i++;
+            }
+            cbDespesa.getSelectionModel().select(i);
             inicializa_campos(false);
             inicializa_botoes(true, true, false, false, false);
         } else {
@@ -122,9 +133,8 @@ public class TelaLançarDespesasController implements Initializable {
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
-                System.out.println("" + ob[5] + ob[2]);
                 if (dtPagamento.getValue() == null) {
-                    ob[6] = "1900-01-01";
+                    ob[6] = "NULL";
                 } else {
                     ob[6] = dtPagamento.getValue().toString();
                 }
@@ -132,18 +142,14 @@ public class TelaLançarDespesasController implements Initializable {
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Inserido com sucesso!", ButtonType.OK);
                     a.showAndWait();
                 }
+
                 inicializa_campos(true);
-
                 limpar_campos();
                 inicializa_botoes(false, true, false, false, true);
-
-                inicializa_botoes(false, true, false, false, true);
-                limpar_campos();
             }
         } catch (Exception e) {
             System.out.println("Erro : " + e);
         }
-        //cbDespesa.setEditable(true);
     }
 
     @FXML
@@ -234,8 +240,8 @@ public class TelaLançarDespesasController implements Initializable {
     private void limpar_campos() {
         txtDescricao.setText("");
         txtValor.setText("");
-        dtEmissao.setValue(LocalDate.now());
-        dtVencimento.setValue(LocalDate.now());
+        dtEmissao.setValue(null);
+        dtVencimento.setValue(null);
     }
 
     @FXML
@@ -288,10 +294,11 @@ public class TelaLançarDespesasController implements Initializable {
     @FXML
     private void busca_desp_txt(KeyEvent event) {
         ArrayList<Tipo_Despesas> list_tipo = new ArrayList<>();
-        
-        if(list_tipo != null)
+
+        if (list_tipo != null) {
             list_tipo.clear();
-        
+        }
+
         for (int i = 0; i < list_tipodespesas.size(); i++) {
             if (list_tipodespesas.get(i).getDescricao().contains(txtDespesa.getText())) {
                 list_tipo.add(new Tipo_Despesas(list_tipodespesas.get(i).getCodigo(), list_tipodespesas.get(i).getDescricao()));
@@ -299,5 +306,10 @@ public class TelaLançarDespesasController implements Initializable {
         }
         cbDespesa.getItems().clear();
         cbDespesa.getItems().addAll(list_tipo);
+    }
+
+    @FXML
+    private void val_mask(KeyEvent event) {
+        MaskFieldUtil.monetaryField(txtValor);
     }
 }

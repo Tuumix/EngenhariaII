@@ -130,19 +130,21 @@ public class TelaBuscaFuncionarioController implements Initializable {
     @FXML
     private void btnExcluir(ActionEvent event) {
         int res;
-        //res = JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
+        res = JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
         try {
-            //if (res == JOptionPane.YES_OPTION) {
-            if (!tabela.getSelectionModel().getSelectedItem().getNivel().equals("Patrão")) {
-                ctr_func.excluir(tabela.getSelectionModel().getSelectedItem().getCodigo());
-                list = ctr_func.buscar("", "");
-                tabela.setItems(FXCollections.observableArrayList(list));
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Funcionario Excluido com Sucesso! ", ButtonType.OK);
-                a.showAndWait();
-            } else {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Não é possível excluir o patrão!! ", ButtonType.OK);
-                a.showAndWait();
+            if (res == JOptionPane.YES_OPTION) {
+                if (!tabela.getSelectionModel().getSelectedItem().getNivel().equals("Patrão")) {
+                    ctr_func.excluir(tabela.getSelectionModel().getSelectedItem().getCodigo());
+                    list = ctr_func.buscar("", "");
+                    tabela.setItems(FXCollections.observableArrayList(list));
+                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Funcionario Excluido com Sucesso! ", ButtonType.OK);
+                    a.showAndWait();
+                } else {
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Não é possível excluir o patrão!! ", ButtonType.OK);
+                    a.showAndWait();
+                }
             }
+
             //}
         } catch (Exception e) {
             System.out.println("" + e);

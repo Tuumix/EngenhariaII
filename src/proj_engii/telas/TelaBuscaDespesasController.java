@@ -99,17 +99,23 @@ public class TelaBuscaDespesasController implements Initializable {
     @FXML
     private void btnAlt(ActionEvent event) {
         if (tabela.getSelectionModel().getSelectedIndex() != -1) {
-            try {
-                desp = new Despesa();
-                desp = tabela.getSelectionModel().getSelectedItem();
-                Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaLançarDespesas.fxml"));
-                tela.getChildren().clear();
-                tela.getChildren().add(root);
-            } catch (Exception e) {
-                System.out.println("Erro" + e);
-                Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+            if (tabela.getSelectionModel().getSelectedItem().getDesp_dtPagamento().isEmpty()) {
+                try {
+                    desp = new Despesa();
+                    desp = tabela.getSelectionModel().getSelectedItem();
+                    Parent root = FXMLLoader.load(getClass().getResource("/proj_engii/telas/TelaLançarDespesas.fxml"));
+                    tela.getChildren().clear();
+                    tela.getChildren().add(root);
+                } catch (Exception e) {
+                    System.out.println("Erro" + e);
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao abrir tela de cadastro! " + e, ButtonType.OK);
+                    a.showAndWait();
+                }
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Não é possível alterar uma despesa já quitada!!! ", ButtonType.OK);
                 a.showAndWait();
             }
+
         } else {
             Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um para exclusão!! ", ButtonType.OK);
             a.showAndWait();
@@ -118,20 +124,27 @@ public class TelaBuscaDespesasController implements Initializable {
 
     @FXML
     private void btnExcluir(ActionEvent event) {
-        //int res = JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
+        int res = JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
 
         try {
-            //if (res == JOptionPane.YES_OPTION) {
-            if (tabela.getSelectionModel().getSelectedIndex() != -1) {
-                if (controladora_desp.excluir(tabela.getSelectionModel().getSelectedItem().getDesp_cod())) {
-                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Excluído com Sucesso!! ", ButtonType.OK);
+            if (res == JOptionPane.YES_OPTION) {
+                if (tabela.getSelectionModel().getSelectedIndex() != -1) {
+
+                    if (tabela.getSelectionModel().getSelectedItem().getDesp_dtPagamento() == null) {
+                        if (controladora_desp.excluir(tabela.getSelectionModel().getSelectedItem().getDesp_cod())) {
+                            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Excluído com Sucesso!! ", ButtonType.OK);
+                            a.showAndWait();
+                            list_despesa = controladora_desp.buscar(txtNome.getText(), "");
+                            tabela.setItems(FXCollections.observableArrayList(list_despesa));
+                        }
+                    } else {
+                        Alert a = new Alert(Alert.AlertType.ERROR, "Não é possível excluir uma despesa já quitada!!! ", ButtonType.OK);
+                        a.showAndWait();
+                    }
+                } else {
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um para exclusão!! ", ButtonType.OK);
                     a.showAndWait();
-                    list_despesa = controladora_desp.buscar(txtNome.getText(), "");
-                    tabela.setItems(FXCollections.observableArrayList(list_despesa));
                 }
-            } else {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Selecione um para exclusão!! ", ButtonType.OK);
-                a.showAndWait();
             }
             //}
         } catch (Exception e) {

@@ -23,7 +23,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javax.swing.ButtonGroup;
 import proj_engii.bancoc.Banco;
 import proj_engii.bancoc.MaskFieldUtil;
 import proj_engii.bancoc.ValidarCPF;
@@ -86,6 +88,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
     private JFXButton botao_limpar;
     @FXML
     private JFXDatePicker dt_admissao;
+    ButtonGroup btn_grupo = new ButtonGroup();
 
     /**
      * Initializes the controller class.
@@ -94,8 +97,6 @@ public class TelaCadastroFuncionarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Inicializa();
         setColors();
-
-        //txtNome.setStyle("-fx-text-inner-color: white;");
     }
 //-----------------------------------------------------------------------------------------
 
@@ -216,6 +217,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
                     gravou = controladora_func.alterar(ob, Integer.parseInt(txtCod.getText()));
                     lbEstado.setText("Nulo");
                     limpar();
+                    estado_inicial(true);
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Funcionario alterado com sucesso!!", ButtonType.OK);
                     a.showAndWait();
                 } else {
@@ -309,7 +311,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
 //-----------------------------------------------------------------------------------------
 
     public void Inicializa() {
-        int cod = Banco.con.getMaxPK("funcionario", "func_cod");
+        int cod = Banco.con.getMaxPK("funcionario", "func_cod"), i;
         controladora_func = new CtrlFuncionario();
         func = TelaBuscaFuncionarioController.getFuncionario();
         txtCod.setText(cod + "");
@@ -318,6 +320,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
         estado_inicial(true);
 
         if (func != null) {
+            i = 0;
             estado_inicial(false);
             estado_botoes(false, true, false, false, true); //alt,gravar,buscar,novo
             func = TelaBuscaFuncionarioController.getFuncionario();
@@ -333,6 +336,13 @@ public class TelaCadastroFuncionarioController implements Initializable {
             txtSenha.setText(func.getSenha());
             txtConfirmSenha.setText(func.getSenha());
             txtCod.setText(func.getCodigo() + "");
+            while(!cbNivel.getItems().get(i).toString().equals(func.getNivel()))
+                i++;
+            cbNivel.getSelectionModel().select(i);
+            if(func.getSexo().equals("masculino"))
+                rd_masc.setSelected(true);
+            else
+                rd_fem.setSelected(true);
             lbEstado.setText("Alterando");
         } else {
             lbEstado.setText("Nulo");
@@ -350,6 +360,8 @@ public class TelaCadastroFuncionarioController implements Initializable {
         txtNumero.clear();
         txtLogin.clear();
         txtTelefone.clear();
+        txtConfirmSenha.clear();
+        txtSenha.clear();
     }
 //-----------------------------------------------------------------------------------------
 
@@ -409,4 +421,26 @@ public class TelaCadastroFuncionarioController implements Initializable {
         return validado;
     }
     //-----------------------------------------------------------------------------------------
+
+    @FXML
+    private void clk_masc(MouseEvent event) {
+        if (rd_fem.isSelected()) {
+            rd_fem.setSelected(false);
+        } else {
+            if (!rd_masc.isSelected() && !rd_fem.isSelected()) {
+                rd_masc.setSelected(true);
+            }
+        }
+    }
+
+    @FXML
+    private void clk_fem(MouseEvent event) {
+        if (rd_masc.isSelected()) {
+            rd_masc.setSelected(false);
+        } else {
+            if (!rd_masc.isSelected() && !rd_fem.isSelected()) {
+                rd_fem.setSelected(true);
+            }
+        }
+    }
 }

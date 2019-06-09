@@ -106,15 +106,18 @@ public class Despesa {
         try {
             String sql = "insert into despesa (desp_codigo,desp_tipo, desp_descricao, desp_valor, desp_dtEmissao, desp_dtVencimento, desp_tipocod, desp_dtpagamento)"
                     + " values (nextval('desp_sequence'),'$1' ,'$2', $3, '$4', '$5', $6, '$7')";
-            //System.out.println(""+nome+numero+login+senha+nivel+dtAdmissao);
-            System.out.println(""+desp.getDesp_dtPagamento());
+            System.out.println("" + desp.getDesp_dtPagamento());
             sql = sql.replace("$1", desp.getDesp_tipo());
             sql = sql.replace("$2", desp.getDesp_descricao());
             sql = sql.replace("$3", desp.getDesp_valor() + "");
             sql = sql.replace("$4", desp.getDesp_dtEmissao());
             sql = sql.replace("$5", desp.getDesp_dtVencimento());
-            sql = sql.replace("$6", desp.getDesp_tipocod()+"");
-            sql = sql.replace("$7", desp.getDesp_dtPagamento());
+            sql = sql.replace("$6", desp.getDesp_tipocod() + "");
+            if (desp.getDesp_dtPagamento().equals("NULL")) {
+                sql = sql.replace("'$7'", desp.getDesp_dtPagamento());
+            } else {
+                sql = sql.replace("$7", desp.getDesp_dtPagamento());
+            }
 
             return Banco.con.manipular(sql);
         } catch (Exception e) {
@@ -167,16 +170,16 @@ public class Despesa {
         sql = sql.replace("$4", desp.desp_descricao);
         sql = sql.replace("$5", desp.desp_tipo + "");
         sql = sql.replace("$6", desp.desp_cod + "");
-        sql = sql.replace("$7", desp.desp_tipocod+"");
-        
+        sql = sql.replace("$7", desp.desp_tipocod + "");
+
         return Banco.con.manipular(sql);
     }
-    
-    public ArrayList<Despesa> getBetweenDates(String date1, String date2){
+
+    public ArrayList<Despesa> getBetweenDates(String date1, String date2) {
         String sql = "select * from despesa where desp_dtvencimento between " + "'$1'" + " and " + "'$2'";
         sql = sql.replace("$1", date1);
         sql = sql.replace("$2", date2);
-        
+
         ResultSet rs;
         ArrayList<Despesa> list = new ArrayList<>();
 
@@ -188,7 +191,7 @@ public class Despesa {
             }
         } catch (Exception er) {
         }
-        
+
         return list;
     }
 }
