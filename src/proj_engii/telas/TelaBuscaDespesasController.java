@@ -77,7 +77,9 @@ public class TelaBuscaDespesasController implements Initializable {
         cbTipo.getItems().add("Descricao");
         cbTipo.getSelectionModel().select(0);
         list_despesa = controladora_desp.buscar(txtNome.getText(), "");
-        tabela.setItems(FXCollections.observableArrayList(list_despesa));
+        tabela.setItems(FXCollections.observableArrayList(list_despesa)); 
+        
+        
     }
 
     private void setCells() {
