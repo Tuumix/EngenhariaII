@@ -25,7 +25,7 @@
                   <JFXButton fx:id="botao_sair" layoutX="555.0" layoutY="18.0" onAction="#btnSair" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: linear-gradient(#222f3e,#576574);" text="Sair" textFill="#c8d6e5" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="sub_tela" layoutX="39.0" layoutY="110.0" prefHeight="264.0" prefWidth="735.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);">
+            <AnchorPane fx:id="sub_tela" layoutX="39.0" layoutY="110.0" prefHeight="264.0" prefWidth="735.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436); -fx-border-radius: 30;">
                <children>
                   <JFXDatePicker fx:id="dtEmissao" defaultColor="#c7ecee" layoutX="482.0" layoutY="105.0" prefHeight="25.0" prefWidth="188.0" promptText="Data de Emissão" />
                   <JFXDatePicker fx:id="dtVencimento" defaultColor="#c7ecee" layoutX="245.0" layoutY="105.0" prefHeight="25.0" prefWidth="185.0" promptText="Data Vencimento" />
@@ -33,7 +33,7 @@
                   <JFXDatePicker fx:id="dtPagamento" defaultColor="#c7ecee" layoutX="33.0" layoutY="183.0" promptText="Data de Pagamento" />
                   <JFXTextField fx:id="txtDescricao" focusColor="PERU" labelFloat="true" layoutX="33.0" layoutY="35.0" prefHeight="27.0" prefWidth="220.0" promptText="Descricao" unFocusColor="#c7ecee" />
                   <JFXTextField fx:id="txtValor" focusColor="PERU" labelFloat="true" layoutX="33.0" layoutY="105.0" onKeyReleased="#val_mask" promptText="Valor" unFocusColor="#c7ecee" />
-                  <AnchorPane layoutX="268.0" layoutY="26.0" prefHeight="46.0" prefWidth="415.0" style="-fx-border-color: #c7ecee;">
+                  <AnchorPane layoutX="268.0" layoutY="26.0" prefHeight="46.0" prefWidth="415.0" style="-fx-border-color: #c7ecee; -fx-border-radius: 15;">
                      <children>
                         <JFXComboBox fx:id="cbDespesa" focusColor="PERU" labelFloat="true" layoutX="215.0" layoutY="10.0" onKeyReleased="#btn_buscadesp" prefHeight="27.0" prefWidth="182.0" promptText="Despesas" unFocusColor="#c7ecee" />
                         <JFXTextField fx:id="txtDespesa" focusColor="PERU" labelFloat="true" layoutX="25.0" layoutY="10.0" onKeyReleased="#busca_desp_txt" promptText="Despesa" unFocusColor="#c7ecee" />

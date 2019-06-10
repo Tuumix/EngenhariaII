@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -89,6 +90,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
     @FXML
     private JFXDatePicker dt_admissao;
     ButtonGroup btn_grupo = new ButtonGroup();
+    private LocalDate local;
 
     /**
      * Initializes the controller class.
@@ -108,7 +110,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
     @FXML
     private void btnGravar(ActionEvent event) {
         try {
-            if (validar()) {
+            if (validar("Cadastrar")) {
                 if (ValidarCPF.isValidCPForCNPJ(txtCPF.getText()) == 1) {
                     if (txtSenha.getText().equals(txtConfirmSenha.getText())) {
                         ob[0] = Integer.parseInt(txtNumero.getText());
@@ -192,7 +194,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
     @FXML
     private void btnAlterar(ActionEvent event) {
         try {
-            if (validar()) {
+            if (validar("Alterar")) {
                 if (txtSenha.getText().equals(txtConfirmSenha.getText())) {
                     ob[0] = Integer.parseInt(txtNumero.getText());
                     ob[1] = txtNome.getText();
@@ -336,13 +338,16 @@ public class TelaCadastroFuncionarioController implements Initializable {
             txtSenha.setText(func.getSenha());
             txtConfirmSenha.setText(func.getSenha());
             txtCod.setText(func.getCodigo() + "");
-            while(!cbNivel.getItems().get(i).toString().equals(func.getNivel()))
+            dt_admissao.setValue(local.parse(func.getDtAdmissao()));
+            while (!cbNivel.getItems().get(i).toString().equals(func.getNivel())) {
                 i++;
+            }
             cbNivel.getSelectionModel().select(i);
-            if(func.getSexo().equals("masculino"))
+            if (func.getSexo().equals("masculino")) {
                 rd_masc.setSelected(true);
-            else
+            } else {
                 rd_fem.setSelected(true);
+            }
             lbEstado.setText("Alterando");
         } else {
             lbEstado.setText("Nulo");
@@ -362,6 +367,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
         txtTelefone.clear();
         txtConfirmSenha.clear();
         txtSenha.clear();
+        dt_admissao.setValue(null);
     }
 //-----------------------------------------------------------------------------------------
 
@@ -385,7 +391,7 @@ public class TelaCadastroFuncionarioController implements Initializable {
     }
 //-----------------------------------------------------------------------------------------
 
-    private Boolean validar() {
+    private Boolean validar(String cad) {
         Boolean validado = true;
         if (txtNome.getText().trim().isEmpty()) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Campo Nome obrigatório!", ButtonType.OK);
@@ -418,6 +424,21 @@ public class TelaCadastroFuncionarioController implements Initializable {
             a.showAndWait();
             validado = false;
         }
+
+        if (cad.equals("Cadastrar")) {
+            if (controladora_func.buscar_login(txtLogin.getText(), -1).size() != 0) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Login já existente!", ButtonType.OK);
+                a.showAndWait();
+                validado = false;
+            }
+        } else {
+            if (controladora_func.buscar_login(txtLogin.getText(), Integer.parseInt(txtCod.getText())).size() != 1) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Login já existente!", ButtonType.OK);
+                a.showAndWait();
+                validado = false;
+            }
+        }
+
         return validado;
     }
     //-----------------------------------------------------------------------------------------

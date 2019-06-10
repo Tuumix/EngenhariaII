@@ -88,6 +88,7 @@ public class TelaBuscaDespesasController implements Initializable {
         col_valor.setCellValueFactory(new PropertyValueFactory<>("desp_valor"));
         col_dtVencimento.setCellValueFactory(new PropertyValueFactory<>("desp_dtVencimento"));
         col_pagamento.setCellValueFactory(new PropertyValueFactory<>("desp_dtPagamento"));
+
     }
 
     @FXML
@@ -99,7 +100,7 @@ public class TelaBuscaDespesasController implements Initializable {
     @FXML
     private void btnAlt(ActionEvent event) {
         if (tabela.getSelectionModel().getSelectedIndex() != -1) {
-            if (tabela.getSelectionModel().getSelectedItem().getDesp_dtPagamento().isEmpty()) {
+            if (tabela.getSelectionModel().getSelectedItem().getDesp_dtPagamento() == null) {
                 try {
                     desp = new Despesa();
                     desp = tabela.getSelectionModel().getSelectedItem();

@@ -284,6 +284,32 @@ public class Funcionario {
         return null;
     }
 
+    public ArrayList<Funcionario> busca_login(String login, int cod) {
+        String sql = "";
+        if (cod == -1) {
+            sql = "select * from funcionario where func_login = " + "'$1'";
+            sql = sql.replace("$1", login);
+        } else {
+            sql = "select * from funcionario where func_login = " + "'$1'" + "and func_cod = " +cod;
+            sql = sql.replace("$1", login);
+        }
+
+        ResultSet rs;
+        ArrayList<Funcionario> list = new ArrayList<>();
+        try {
+            rs = Banco.con.consultar(sql);
+            while (rs.next()) {
+                list.add(new Funcionario(rs.getInt("func_cod"), rs.getInt("func_numero"), rs.getString("func_nome"),
+                        rs.getString("func_cep"), rs.getString("func_cpf"), rs.getString("func_endereco"),
+                        rs.getString("func_telefone"), rs.getString("func_cidade"), rs.getString("func_email"), rs.getString("func_sexo"), rs.getString("func_login"),
+                        rs.getString("func_nivel"), rs.getString("func_senha"), rs.getString("func_dtAdmissao")));
+            }
+            return list;
+        } catch (Exception er) {
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return nome;

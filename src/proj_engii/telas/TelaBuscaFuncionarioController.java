@@ -133,7 +133,7 @@ public class TelaBuscaFuncionarioController implements Initializable {
         res = JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
         try {
             if (res == JOptionPane.YES_OPTION) {
-                if (!tabela.getSelectionModel().getSelectedItem().getNivel().equals("Patrão")) {
+                if (validar_patrao() != 1) {
                     ctr_func.excluir(tabela.getSelectionModel().getSelectedItem().getCodigo());
                     list = ctr_func.buscar("", "");
                     tabela.setItems(FXCollections.observableArrayList(list));
@@ -195,5 +195,14 @@ public class TelaBuscaFuncionarioController implements Initializable {
             list = ctr_func.buscar(txtNome.getText(), cbTipo.getSelectionModel().getSelectedItem().toLowerCase());
         }
         tabela.setItems(FXCollections.observableArrayList(list));
+    }
+    
+    private int validar_patrao(){
+        int cont = 0;
+        for(int i = 0; i < list.size();i++){
+            if(list.get(i).getNivel().equals("Patrão"))
+                cont++;
+        }
+        return cont;
     }
 }

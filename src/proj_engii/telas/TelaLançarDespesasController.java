@@ -98,11 +98,7 @@ public class TelaLançarDespesasController implements Initializable {
             txtValor.setText(despesa.getDesp_valor() + "");
             dtEmissao.setValue(local.parse(despesa.getDesp_dtEmissao()));
             dtVencimento.setValue(local.parse(despesa.getDesp_dtEmissao()));
-            if (!despesa.getDesp_dtPagamento().equals("NULL")) {
-                dtPagamento.setValue(local.parse(despesa.getDesp_dtPagamento()));
-            } else {
-                dtPagamento.setValue(null);
-            }
+            dtPagamento.setValue(null);
             while (!cbDespesa.getItems().get(i).getDescricao().equals(despesa.getDesp_tipo())) {
                 i++;
             }
@@ -256,7 +252,7 @@ public class TelaLançarDespesasController implements Initializable {
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
 
                 if (dtPagamento.getValue() == null) {
-                    ob[6] = "1900-01-01";
+                    ob[6] = "NULL";
                 } else {
                     ob[6] = dtPagamento.getValue().toString();
                 }

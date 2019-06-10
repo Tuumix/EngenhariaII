@@ -23,7 +23,7 @@ public class CtrlFuncionario {
         try {
             func = new Funcionario((Integer) ob[0], (String) ob[1], (String) ob[2],
                     (String) ob[3], (String) ob[4], (String) ob[5], (String) ob[6], (String) ob[7],
-                    (String) ob[8], (String) ob[9], (String) ob[10], (String) ob[11], (String)ob[12]);
+                    (String) ob[8], (String) ob[9], (String) ob[10], (String) ob[11], (String) ob[12]);
             return func.salvar(func);
         } catch (Exception e) {
             System.out.println("Erro" + e);
@@ -44,7 +44,7 @@ public class CtrlFuncionario {
         try {
             func = new Funcionario((Integer) ob[0], (String) ob[1], (String) ob[2],
                     (String) ob[3], (String) ob[4], (String) ob[5], (String) ob[6], (String) ob[7],
-                    (String) ob[8], (String) ob[9], (String) ob[10], (String) ob[11], (String)ob[12]);
+                    (String) ob[8], (String) ob[9], (String) ob[10], (String) ob[11], (String) ob[12]);
             return func.alterar(func, cod);
         } catch (Exception e) {
             System.out.println("Erro" + e);
@@ -64,6 +64,16 @@ public class CtrlFuncionario {
     public ArrayList<Funcionario> logar(String login, String senha) {
         try {
             return func.logar(login, senha);
+        } catch (Exception e) {
+            System.out.println("" + e);
+        }
+
+        return null;
+    }
+
+    public ArrayList<Funcionario> buscar_login(String login, int cod) {
+        try {
+            return func.busca_login(login,cod);
         } catch (Exception e) {
             System.out.println("" + e);
         }

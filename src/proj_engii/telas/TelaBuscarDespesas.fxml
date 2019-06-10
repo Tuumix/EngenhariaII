@@ -16,13 +16,13 @@
       <Button layoutX="430.0" layoutY="57.0" mnemonicParsing="false" onAction="#btnBuscar" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Pesquisar" textFill="#c8d6e5" />
       <TableView fx:id="tabela" layoutX="14.0" layoutY="92.0" prefHeight="435.0" prefWidth="762.0">
          <columns>
-            <TableColumn fx:id="col_codigo" minWidth="100.0" prefWidth="75.0" text="Código" />
-            <TableColumn fx:id="col_descricao" minWidth="180.0" prefWidth="75.0" text="Descrição" />
-            <TableColumn fx:id="col_tipo" minWidth="180.0" prefWidth="75.0" text="Tipo" />
-            <TableColumn fx:id="col_valor" minWidth="180.0" prefWidth="75.0" text="Valor" />
-            <TableColumn fx:id="col_dtemissao" minWidth="160.0" prefWidth="75.0" text="Data Emissão" />
-            <TableColumn fx:id="col_dtVencimento" minWidth="180.0" prefWidth="75.0" text="Data Vencimento" />
-            <TableColumn fx:id="col_pagamento" prefWidth="75.0" text="Data de Pagamento" />
+            <TableColumn fx:id="col_codigo" minWidth="150.0" prefWidth="75.0" text="Código" />
+            <TableColumn fx:id="col_descricao" minWidth="150.0" prefWidth="75.0" text="Descrição" />
+            <TableColumn fx:id="col_tipo" minWidth="150.0" prefWidth="75.0" text="Tipo" />
+            <TableColumn fx:id="col_valor" minWidth="150.0" prefWidth="75.0" text="Valor" />
+            <TableColumn fx:id="col_dtemissao" minWidth="150.0" prefWidth="75.0" text="Data Emissão" />
+            <TableColumn fx:id="col_dtVencimento" minWidth="150.0" prefWidth="75.0" text="Data Vencimento" />
+            <TableColumn fx:id="col_pagamento" minWidth="150.0" prefWidth="75.0" text="Data de Pagamento" />
          </columns>
       </TableView>
       <Button layoutX="211.0" layoutY="540.0" mnemonicParsing="false" onAction="#btnAlt" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Alterar" textFill="#c8d6e5" />
