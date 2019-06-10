@@ -79,4 +79,13 @@ public class CtrlOrcamento {
         }
         return false;
     }
+
+    public Boolean altera_itensorc(int qtde) {
+        try {
+            return itens.alterar(qtde);
+        } catch (Exception e) {
+            System.out.println("" + e);
+        }
+        return false;
+    }
 }

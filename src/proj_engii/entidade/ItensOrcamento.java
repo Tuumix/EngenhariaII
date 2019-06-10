@@ -107,7 +107,7 @@ public class ItensOrcamento {
         try {
             rs = Banco.con.consultar(sql);
             while (rs.next()) {
-                list.add(new ItensOrcamento(rs.getInt("itensorc_cod"), rs.getInt("orc_cod_fk"), rs.getInt("prod_qtde"),
+                list.add(new ItensOrcamento(rs.getInt("itensorc_cod"), rs.getInt("prod_cod_fk"), rs.getInt("prod_qtde"),
                         rs.getString("prod_desc")));
             }
 
@@ -124,5 +124,19 @@ public class ItensOrcamento {
         sql = "delete from itens_orc where orc_cod_fk = " + cod;
         
         return Banco.con.manipular(sql);
+    }
+    
+        public Boolean alterar(int qtde) {
+        String sql = "";
+        try {
+            sql = "update itens_orc set prod_qtde = " + qtde;
+
+            System.out.println("" + sql);
+            return Banco.con.manipular(sql);
+        } catch (Exception e) {
+            System.out.println("Erro : " + e);
+        }
+
+        return false;
     }
 }

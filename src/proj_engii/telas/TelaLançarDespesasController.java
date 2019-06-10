@@ -193,6 +193,7 @@ public class TelaLançarDespesasController implements Initializable {
         dtVencimento.setDisable(b1);
         botao_limpar.setDisable(b1);
         dtPagamento.setDisable(b1);
+        txtDespesa.setDisable(b1);
     }
 
     public void inicializa_botoes(Boolean b1, Boolean b2, Boolean b3, Boolean b4, Boolean b5) {

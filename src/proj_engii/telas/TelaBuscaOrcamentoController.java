@@ -19,13 +19,16 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.converter.IntegerStringConverter;
 import proj_engii.entidade.Orcamento;
 
 /**
@@ -53,7 +56,7 @@ public class TelaBuscaOrcamentoController implements Initializable {
     @FXML
     private TableColumn<?, ?> col_codO;
     @FXML
-    private TableColumn<?, ?> col_qtdeI;
+    private TableColumn<ItensOrcamento, Integer> col_qtdeI;
     @FXML
     private TableView<ItensOrcamento> tabela_itens;
     @FXML
@@ -64,6 +67,8 @@ public class TelaBuscaOrcamentoController implements Initializable {
     private ArrayList<Orcamento> aux = new ArrayList<>();
     @FXML
     private TextField txt_tipo;
+    @FXML
+    private Label lbStatus;
 
     /**
      * Initializes the controller class.
@@ -76,6 +81,9 @@ public class TelaBuscaOrcamentoController implements Initializable {
         tabela_orcamento.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         aux = ctrl_orc.buscar("");
         tabela_orcamento.setItems(FXCollections.observableArrayList(aux));
+        
+        tabela_orcamento.setEditable(true);
+        col_qtdeI.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         // TODO
     }
@@ -88,11 +96,10 @@ public class TelaBuscaOrcamentoController implements Initializable {
         col_func.setCellValueFactory(new PropertyValueFactory<>("orc_func"));
         col_total.setCellValueFactory(new PropertyValueFactory<>("orc_total"));
 
-        col_codI.setCellValueFactory(new PropertyValueFactory<>("itensorc_cod"));
+        col_codI.setCellValueFactory(new PropertyValueFactory<>("prod_cod"));
         col_prodI.setCellValueFactory(new PropertyValueFactory<>("prod_desc"));
         col_codO.setCellValueFactory(new PropertyValueFactory<>("orc_cod"));
         col_qtdeI.setCellValueFactory(new PropertyValueFactory<>("prod_qtde"));
-
     }
 
     @FXML
@@ -155,6 +162,20 @@ public class TelaBuscaOrcamentoController implements Initializable {
         }
         tabela_orcamento.getItems().clear();
         tabela_orcamento.setItems(FXCollections.observableArrayList(list));
+    }
+
+    @FXML
+    private void btnConfirmar(ActionEvent event) {
+        for(int i = 0; i < tabela_itens.getItems().size();i++){
+            if(ctrl_orc.altera_itensorc(tabela_itens.getItems().get(i).getProd_qtde()))
+                System.out.println("ok");
+        }
+    }
+
+    @FXML
+    private void onclk_qtde(TableColumn.CellEditEvent<ItensOrcamento, Integer> event) {
+        ItensOrcamento itens = tabela_itens.getSelectionModel().getSelectedItem();
+        itens.setProd_qtde(event.getNewValue());
     }
 
 }

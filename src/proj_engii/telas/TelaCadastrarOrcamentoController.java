@@ -77,6 +77,8 @@ public class TelaCadastrarOrcamentoController implements Initializable {
     private Produto p;
     @FXML
     private AnchorPane tela;
+    @FXML
+    private ComboBox<?> cbCliente;
 
     /**
      * Initializes the controller class.
