@@ -9,34 +9,42 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="tela" minHeight="539.0" minWidth="752.0" prefHeight="539.0" prefWidth="752.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaBuscaOrcamentoController">
+<AnchorPane id="AnchorPane" fx:id="tela" prefHeight="539.0" prefWidth="752.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaBuscaOrcamentoController">
    <children>
-      <TextField fx:id="txt_tipo" layoutX="14.0" layoutY="14.0" onKeyReleased="#search" promptText="Pesquisa" />
-      <TableView fx:id="tabela_orcamento" layoutX="21.0" layoutY="77.0" onMouseClicked="#selected" prefHeight="385.0" prefWidth="320.0">
+      <TextField fx:id="txt_tipo" layoutX="48.0" layoutY="27.0" onKeyReleased="#search" promptText="Pesquisa" />
+      <TableView fx:id="tabela_orcamento" layoutX="37.0" layoutY="70.0" onMouseClicked="#selected" prefHeight="436.0" prefWidth="320.0">
         <columns>
-          <TableColumn fx:id="col_cod" prefWidth="75.0" text="Código" />
-          <TableColumn fx:id="col_cli" prefWidth="75.0" text="Cliente" />
-            <TableColumn fx:id="col_func" prefWidth="75.0" text="Funcionário" />
-            <TableColumn fx:id="col_total" prefWidth="75.0" text="Total" />
+          <TableColumn fx:id="col_cod" minWidth="75.0" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="col_cli" minWidth="75.0" prefWidth="75.0" text="Cliente" />
+            <TableColumn fx:id="col_func" minWidth="75.0" prefWidth="75.0" text="Funcionário" />
+            <TableColumn fx:id="col_total" minWidth="75.0" prefWidth="75.0" text="Total" />
+            <TableColumn fx:id="col_dtcriacao" minWidth="75.0" prefWidth="75.0" text="Data Criada" />
+            <TableColumn fx:id="col_dtvencimento" minWidth="75.0" prefWidth="75.0" text="Vencimento" />
         </columns>
       </TableView>
-      <TableView fx:id="tabela_itens" editable="true" layoutX="367.0" layoutY="77.0" prefHeight="385.0" prefWidth="368.0">
+      <TableView fx:id="tabela_itens" editable="true" layoutX="438.0" layoutY="70.0" prefHeight="436.0" prefWidth="320.0">
         <columns>
-          <TableColumn fx:id="col_codI" prefWidth="75.0" text="Código" />
-          <TableColumn fx:id="col_prodI" prefWidth="75.0" text="Produto" />
-            <TableColumn fx:id="col_codO" prefWidth="75.0" text="Códigor Orçamento" />
-            <TableColumn fx:id="col_qtdeI" onEditCommit="#onclk_qtde" prefWidth="75.0" text="Quantidade" />
+          <TableColumn fx:id="col_codI" minWidth="100.0" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="col_prodI" minWidth="100.0" prefWidth="75.0" text="Produto" />
+            <TableColumn fx:id="col_codO" minWidth="100.0" prefWidth="75.0" text="Códigor Orçamento" />
+            <TableColumn fx:id="col_qtdeI" minWidth="100.0" onEditCommit="#edit_table" prefWidth="75.0" text="Quantidade" />
+            <TableColumn fx:id="cod_itens" minWidth="100.0" prefWidth="75.0" text="Código Itens" />
         </columns>
       </TableView>
-      <JFXButton layoutX="236.0" layoutY="505.0" onAction="#btnExcluir" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Excluir" textFill="#c7ecee" />
-      <JFXButton layoutX="392.0" layoutY="505.0" onAction="#btnSair" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Sair" textFill="#c7ecee" />
-      <ComboBox fx:id="cbPesquisa" layoutX="201.0" layoutY="14.0" prefWidth="150.0" />
-      <Label fx:id="lbStatus" layoutX="666.0" layoutY="7.0" text="Status">
+      <ComboBox fx:id="cbPesquisa" layoutX="235.0" layoutY="27.0" prefWidth="150.0" />
+      <Label fx:id="lbStatus" layoutX="651.0" layoutY="11.0" text="Status" textFill="#f5eeee">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXButton layoutX="330.0" layoutY="505.0" onAction="#btnConfirmar" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Sair" textFill="#c7ecee" />
-      <JFXButton layoutX="666.0" layoutY="41.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Aprovar" textFill="#c7ecee" />
+      <AnchorPane layoutX="1.0" layoutY="530.0" prefHeight="45.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);">
+         <children>
+            <JFXButton layoutX="309.0" layoutY="10.0" onAction="#btnExcluir" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Excluir" textFill="#c7ecee" />
+            <JFXButton layoutX="512.0" layoutY="10.0" onAction="#btnSair" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Sair" textFill="#c7ecee" />
+            <JFXButton layoutX="410.0" layoutY="10.0" onAction="#btnConfirmar" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Confirmar" textFill="#c7ecee" />
+            <JFXButton layoutX="209.0" layoutY="10.0" onAction="#btnAprovar" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Aprovar" textFill="#c7ecee" />
+         </children>
+      </AnchorPane>
+      <JFXButton layoutX="366.0" layoutY="246.0" onAction="#btnRetirar" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Retirar" textFill="#c7ecee" />
    </children>
 </AnchorPane>

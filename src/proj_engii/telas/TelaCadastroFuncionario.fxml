@@ -77,11 +77,12 @@
    <bottom>
       <AnchorPane prefHeight="59.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#353b48,#2f3640);" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="botao_gravar" buttonType="RAISED" layoutX="245.0" layoutY="15.0" onAction="#btnGravar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Gravar" textFill="#c7ecee" />
-            <JFXButton fx:id="botao_buscar" layoutX="355.0" layoutY="15.0" onAction="#btnBuscar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Buscar" textFill="#c7ecee" />
-            <JFXButton fx:id="botao_alterar" buttonType="RAISED" layoutX="469.0" layoutY="15.0" onAction="#btnAlterar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Alterar" textFill="#c7ecee" />
-            <JFXButton layoutX="582.0" layoutY="15.0" onAction="#btnSair" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Sair" textFill="#c7ecee" />
-            <JFXButton fx:id="botao_novo" layoutX="141.0" layoutY="16.0" onAction="#btnNovo" prefHeight="29.0" prefWidth="67.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Novo" textFill="#c7ecee" />
+            <JFXButton fx:id="botao_gravar" buttonType="RAISED" layoutX="214.0" layoutY="15.0" onAction="#btnGravar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Gravar" textFill="#c7ecee" />
+            <JFXButton fx:id="botao_buscar" layoutX="324.0" layoutY="15.0" onAction="#btnBuscar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Buscar" textFill="#c7ecee" />
+            <JFXButton fx:id="botao_alterar" buttonType="RAISED" layoutX="438.0" layoutY="15.0" onAction="#btnAlterar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Alterar" textFill="#c7ecee" />
+            <JFXButton layoutX="633.0" layoutY="15.0" onAction="#btnSair" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Sair" textFill="#c7ecee" />
+            <JFXButton fx:id="botao_novo" layoutX="110.0" layoutY="16.0" onAction="#btnNovo" prefHeight="29.0" prefWidth="67.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Novo" textFill="#c7ecee" />
+            <JFXButton buttonType="RAISED" layoutX="536.0" layoutY="16.0" onAction="#btnCancelar" prefHeight="27.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(#34495e,#7f8c8d);" text="Cancelar" textFill="#c7ecee" />
          </children>
       </AnchorPane>
    </bottom>

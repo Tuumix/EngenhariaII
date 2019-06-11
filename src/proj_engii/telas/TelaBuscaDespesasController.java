@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -77,9 +79,9 @@ public class TelaBuscaDespesasController implements Initializable {
         cbTipo.getItems().add("Descricao");
         cbTipo.getSelectionModel().select(0);
         list_despesa = controladora_desp.buscar(txtNome.getText(), "");
-        tabela.setItems(FXCollections.observableArrayList(list_despesa)); 
-        
-        
+        //reverte_data();
+        tabela.setItems(FXCollections.observableArrayList(list_despesa));
+
     }
 
     private void setCells() {
@@ -202,5 +204,16 @@ public class TelaBuscaDespesasController implements Initializable {
             }
         }
         tabela.setItems(FXCollections.observableArrayList(aux));
+    }
+
+    private void reverte_data() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        for (int i = 0; i < list_despesa.size(); i++) {
+            list_despesa.get(i).setDesp_dtEmissao(LocalDate.parse(list_despesa.get(i).getDesp_dtEmissao(), formatter).format(formatter2).toString());
+            list_despesa.get(i).setDesp_dtVencimento(LocalDate.parse(list_despesa.get(i).getDesp_dtVencimento(), formatter).format(formatter2).toString());
+            //list_despesa.get(i).setDesp_dtPagamento(LocalDate.parse(list_despesa.get(i).getDesp_dtVencimento(), formatter).format(formatter2).toString());
+
+        }
     }
 }

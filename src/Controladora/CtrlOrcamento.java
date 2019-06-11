@@ -24,7 +24,7 @@ public class CtrlOrcamento {
 
     public Boolean salvar(Object[] ob) {
         try {
-            orc = new Orcamento((String) ob[0], (Double) ob[1], (String) ob[2]);
+            orc = new Orcamento((String) ob[0], (Double) ob[1], (String) ob[2], (Boolean) ob[3], (String) ob[4], (String) ob[5]);
             return orc.salvar();
         } catch (Exception e) {
             System.out.println("" + e);
@@ -80,12 +80,24 @@ public class CtrlOrcamento {
         return false;
     }
 
-    public Boolean altera_itensorc(int qtde) {
+    public Boolean altera_itensorc(int qtde, int cod) {
         try {
-            return itens.alterar(qtde);
+            return itens.alterar(qtde, cod);
         } catch (Exception e) {
             System.out.println("" + e);
         }
         return false;
+    }
+
+    public Boolean aprovar_orc(int cod) {
+        return orc.aprovar(cod);
+    }
+
+    public Boolean atualizar_total(double total, int cod) {
+        return orc.atualizar_total(total, cod);
+    }
+
+    public Boolean excluir_itensorc(int cod) {
+        return itens.excluir_itensorc(cod);
     }
 }

@@ -107,7 +107,7 @@ public class ItensOrcamento {
         try {
             rs = Banco.con.consultar(sql);
             while (rs.next()) {
-                list.add(new ItensOrcamento(rs.getInt("itensorc_cod"), rs.getInt("prod_cod_fk"), rs.getInt("prod_qtde"),
+                list.add(new ItensOrcamento(rs.getInt("itensorc_cod"), rs.getInt("orc_cod_fk"), rs.getInt("prod_cod_fk"), rs.getInt("prod_qtde"),
                         rs.getString("prod_desc")));
             }
 
@@ -117,20 +117,20 @@ public class ItensOrcamento {
 
         return null;
     }
-    
-    public Boolean excluir(int cod){
+
+    public Boolean excluir(int cod) {
         String sql = "";
-        
+
         sql = "delete from itens_orc where orc_cod_fk = " + cod;
-        
+
         return Banco.con.manipular(sql);
     }
-    
-        public Boolean alterar(int qtde) {
+
+    public Boolean alterar(int qtde,int cod) {
         String sql = "";
         try {
-            sql = "update itens_orc set prod_qtde = " + qtde;
-
+            sql = "update itens_orc set prod_qtde = $1 where itensorc_cod = " + cod;
+            sql = sql.replace("$1", qtde+"");
             System.out.println("" + sql);
             return Banco.con.manipular(sql);
         } catch (Exception e) {
@@ -138,5 +138,13 @@ public class ItensOrcamento {
         }
 
         return false;
+    }
+
+    public Boolean excluir_itensorc(int cod) {
+        String sql = "";
+
+        sql = "delete from itens_orc where itensorc_cod = " + cod;
+        System.out.println(""+sql);
+        return Banco.con.manipular(sql);
     }
 }

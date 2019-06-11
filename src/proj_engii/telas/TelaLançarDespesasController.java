@@ -37,7 +37,7 @@ import proj_engii.entidade.Tipo_Despesas;
  * @author Hiroshi
  */
 public class TelaLançarDespesasController implements Initializable {
-
+    
     @FXML
     private JFXDatePicker dtEmissao;
     @FXML
@@ -98,11 +98,12 @@ public class TelaLançarDespesasController implements Initializable {
             txtValor.setText(despesa.getDesp_valor() + "");
             dtEmissao.setValue(local.parse(despesa.getDesp_dtEmissao()));
             dtVencimento.setValue(local.parse(despesa.getDesp_dtEmissao()));
-            dtPagamento.setValue(null);
+            //dtPagamento.setValue(null);
             while (!cbDespesa.getItems().get(i).getDescricao().equals(despesa.getDesp_tipo())) {
                 i++;
             }
             cbDespesa.getSelectionModel().select(i);
+            lbEstado.setText("Alterando");
             inicializa_campos(false);
             inicializa_botoes(true, true, false, false, false);
         } else {
@@ -110,17 +111,16 @@ public class TelaLançarDespesasController implements Initializable {
             inicializa_botoes(false, true, false, false, true);
         }
     }
-
+    
     @FXML
     private void btnLimpar(ActionEvent event) {
         limpar_campos();
     }
-
+    
     @FXML
     private void btnGravar(ActionEvent event) {
         cbDespesa.setEditable(false);
-        //System.out.println("" + cbDespesa.get);
-        //System.out.println("" + cbDespesa.getItems().size());
+
         try {
             if (!validar()) {
                 ob[0] = txtDescricao.getText();
@@ -138,7 +138,6 @@ public class TelaLançarDespesasController implements Initializable {
                     Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Inserido com sucesso!", ButtonType.OK);
                     a.showAndWait();
                 }
-
                 inicializa_campos(true);
                 limpar_campos();
                 inicializa_botoes(false, true, false, false, true);
@@ -147,14 +146,15 @@ public class TelaLançarDespesasController implements Initializable {
             System.out.println("Erro : " + e);
         }
     }
-
+    
     @FXML
     private void btnNovo(ActionEvent event) {
         inicializa_campos(false);
         inicializa_botoes(true, false, true, false, true);
+        lbEstado.setText("Cadastrando");
         cbDespesa.getSelectionModel().select(0);
     }
-
+    
     @FXML
     private void btnBuscar(ActionEvent event) {
         try {
@@ -167,7 +167,7 @@ public class TelaLançarDespesasController implements Initializable {
             a.showAndWait();
         }
     }
-
+    
     @FXML
     private void btnSair(ActionEvent event) {
         try {
@@ -180,11 +180,11 @@ public class TelaLançarDespesasController implements Initializable {
             a.showAndWait();
         }
     }
-
+    
     private void mascara_valor(KeyEvent event) {
         MaskFieldUtil.monetaryField(txtValor);
     }
-
+    
     public void inicializa_campos(Boolean b1) {
         txtDescricao.setDisable(b1);
         cbDespesa.setDisable(b1);
@@ -195,7 +195,7 @@ public class TelaLançarDespesasController implements Initializable {
         dtPagamento.setDisable(b1);
         txtDespesa.setDisable(b1);
     }
-
+    
     public void inicializa_botoes(Boolean b1, Boolean b2, Boolean b3, Boolean b4, Boolean b5) {
         botao_novo.setDisable(b1);
         botao_gravar.setDisable(b2);
@@ -203,7 +203,7 @@ public class TelaLançarDespesasController implements Initializable {
         botao_sair.setDisable(b4);
         botao_alterar.setDisable(b5);
     }
-
+    
     private Boolean validar() {
         Boolean erro = false;
         if (txtDescricao.getText().isEmpty()) {
@@ -233,14 +233,14 @@ public class TelaLançarDespesasController implements Initializable {
         }
         return erro;
     }
-
+    
     private void limpar_campos() {
         txtDescricao.setText("");
         txtValor.setText("");
         dtEmissao.setValue(null);
         dtVencimento.setValue(null);
     }
-
+    
     @FXML
     private void btnAlterar(ActionEvent event) {
         try {
@@ -251,7 +251,7 @@ public class TelaLançarDespesasController implements Initializable {
                 ob[3] = dtEmissao.getValue().toString();
                 ob[4] = dtVencimento.getValue().toString();
                 ob[5] = cbDespesa.getSelectionModel().getSelectedItem().getCodigo();
-
+                
                 if (dtPagamento.getValue() == null) {
                     ob[6] = "NULL";
                 } else {
@@ -263,17 +263,19 @@ public class TelaLançarDespesasController implements Initializable {
                     inicializa_campos(true);
                     limpar_campos();
                     inicializa_botoes(false, true, false, false, true);
+                    despesa = null;
+                    lbEstado.setText("-");
                 } else {
                     Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao alterar!", ButtonType.OK);
                     a.showAndWait();
                 }
             }
-
+            
         } catch (Exception e) {
             System.out.println("" + e);
         }
     }
-
+    
     private void setColors() {
         txtDescricao.getStylesheets().add("/proj_engii/style.css");
         txtValor.getStylesheets().add("/proj_engii/style.css");
@@ -283,19 +285,19 @@ public class TelaLançarDespesasController implements Initializable {
         cbDespesa.getStylesheets().add("/proj_engii/style.css");
         txtDespesa.getStylesheets().add("/proj_engii/style.css");
     }
-
+    
     @FXML
     private void btn_buscadesp(KeyEvent event) {
     }
-
+    
     @FXML
     private void busca_desp_txt(KeyEvent event) {
         ArrayList<Tipo_Despesas> list_tipo = new ArrayList<>();
-
+        
         if (list_tipo != null) {
             list_tipo.clear();
         }
-
+        
         for (int i = 0; i < list_tipodespesas.size(); i++) {
             if (list_tipodespesas.get(i).getDescricao().contains(txtDespesa.getText())) {
                 list_tipo.add(new Tipo_Despesas(list_tipodespesas.get(i).getCodigo(), list_tipodespesas.get(i).getDescricao()));
@@ -304,9 +306,18 @@ public class TelaLançarDespesasController implements Initializable {
         cbDespesa.getItems().clear();
         cbDespesa.getItems().addAll(list_tipo);
     }
-
+    
     @FXML
     private void val_mask(KeyEvent event) {
         MaskFieldUtil.monetaryField(txtValor);
     }
+    
+    @FXML
+    private void btnCancelar(ActionEvent event) {
+        lbEstado.setText("-");
+        inicializa_campos(true);
+        limpar_campos();
+        inicializa_botoes(false, true, false, false, true);
+    }
+    
 }

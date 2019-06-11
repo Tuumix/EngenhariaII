@@ -16,25 +16,31 @@ import proj_engii.bancoc.Banco;
 public class Orcamento {
 
     private int orc_cod;
-    private String orc_func, orc_cliente;
+    private String orc_func, orc_cliente, orc_criado, orc_validade;
     private double orc_total;
+    private Boolean aprovado;
 
     public Orcamento() {
 
     }
 
-    public Orcamento(String orc_func, double orc_total, String orc_cliente) {
+    public Orcamento(String orc_func, double orc_total, String orc_cliente, Boolean aprovado, String orc_criado, String orc_validade) {
         this.orc_func = orc_func;
         this.orc_total = orc_total;
         this.orc_cliente = orc_cliente;
+        this.aprovado = aprovado;
+        this.orc_criado = orc_criado;
+        this.orc_validade = orc_validade;
     }
 
-    public Orcamento(int orc_cod, String orc_func, double orc_total, String orc_cliente) {
+    public Orcamento(int orc_cod, String orc_func, double orc_total, String orc_cliente, Boolean aprovado, String orc_criado, String orc_validade) {
         this.orc_cod = orc_cod;
         this.orc_func = orc_func;
         this.orc_total = orc_total;
         this.orc_cliente = orc_cliente;
-
+        this.aprovado = aprovado;
+        this.orc_criado = orc_criado;
+        this.orc_validade = orc_validade;
     }
 
     public int getOrc_cod() {
@@ -69,16 +75,43 @@ public class Orcamento {
         this.orc_cliente = orc_cliente;
     }
 
+    public Boolean getAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(Boolean aprovado) {
+        this.aprovado = aprovado;
+    }
+
+    public String getOrc_criado() {
+        return orc_criado;
+    }
+
+    public void setOrc_criado(String orc_criado) {
+        this.orc_criado = orc_criado;
+    }
+
+    public String getOrc_validade() {
+        return orc_validade;
+    }
+
+    public void setOrc_validade(String orc_validade) {
+        this.orc_validade = orc_validade;
+    }
+
     public Boolean salvar() {
         String sql = "";
 
         try {
-            sql = "insert into orcamento(orc_cod,orc_func,orc_total,orc_cliente) values(nextval('orc_sequence'),'$1',$2,'$3')";
+            sql = "insert into orcamento(orc_cod,orc_func,orc_total,orc_cliente,orc_aprovacao,orc_criado,orc_validade) values(nextval('orc_sequence'),'$1',$2,'$3',$4,'$5','$6')";
 
             sql = sql.replace("$1", orc_func);
             sql = sql.replace("$2", orc_total + "");
             sql = sql.replace("$3", orc_cliente);
-
+            sql = sql.replace("$4", aprovado + "");
+            sql = sql.replace("$5", orc_criado);
+            sql = sql.replace("$6", orc_validade);
+            System.out.println("" + sql);
             return Banco.con.manipular(sql);
 
         } catch (Exception e) {
@@ -104,7 +137,7 @@ public class Orcamento {
             rs = Banco.con.consultar(sql);
             while (rs.next()) {
                 list.add(new Orcamento(rs.getInt("orc_cod"), rs.getString("orc_func"), rs.getDouble("orc_total"),
-                        rs.getString("orc_cliente")));
+                        rs.getString("orc_cliente"), rs.getBoolean("orc_aprovacao"), rs.getString("orc_criado"), rs.getString("orc_validade")));
             }
 
             return list;
@@ -117,6 +150,19 @@ public class Orcamento {
     public Boolean delete(int cod) {
         String sql = "";
         sql = "delete from orcamento where orc_cod = " + cod;
+        return Banco.con.manipular(sql);
+    }
+
+    public Boolean aprovar(int cod) {
+        String sql = "";
+        sql = "update orcamento set orc_aprovacao = true where orc_cod = " + cod;
+        return Banco.con.manipular(sql);
+    }
+
+    public Boolean atualizar_total(double total, int cod) {
+        String sql = "";
+        sql = "update orcamento set orc_total = $1 where orc_cod = " + cod;
+        sql = sql.replace("$1", total+"");
         return Banco.con.manipular(sql);
     }
 }

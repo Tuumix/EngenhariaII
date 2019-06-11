@@ -5,11 +5,13 @@
  */
 package proj_engii.telas;
 
+import Controladora.CtrlCliente;
 import Controladora.CtrlFuncionario;
 import Controladora.CtrlOrcamento;
 import Controladora.CtrlProduto;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -22,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,6 +32,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import proj_engii.bancoc.Banco;
+import proj_engii.bancoc.MaskFieldUtil;
+import proj_engii.entidade.Cliente;
 import proj_engii.entidade.Funcionario;
 import proj_engii.entidade.Produto;
 
@@ -70,6 +75,9 @@ public class TelaCadastrarOrcamentoController implements Initializable {
     private ArrayList<Produto> list_prod = new ArrayList<>();
     private ArrayList<Produto> aux = new ArrayList<>();
     private ArrayList<Produto> prod_orc = new ArrayList<>();
+    private ArrayList<Cliente> list_cli = new ArrayList<>();
+    private CtrlCliente ctrl_cli = new CtrlCliente();
+
     private Object[] ob = new Object[10];
     @FXML
     private Label txt_total;
@@ -78,7 +86,11 @@ public class TelaCadastrarOrcamentoController implements Initializable {
     @FXML
     private AnchorPane tela;
     @FXML
-    private ComboBox<?> cbCliente;
+    private ComboBox<Cliente> cbCliente;
+    @FXML
+    private RadioButton rdAprovado;
+    @FXML
+    private RadioButton rdReprovado;
 
     /**
      * Initializes the controller class.
@@ -89,6 +101,9 @@ public class TelaCadastrarOrcamentoController implements Initializable {
         setCells();
         list_func = ctrl_func.buscar("", "");
         cb_func.getItems().addAll(list_func);
+
+        list_cli = ctrl_cli.busca();
+        cbCliente.getItems().addAll(list_cli);
 
         list_prod = ctrl_prod.buscar("");
         tab_prod.setItems(FXCollections.observableArrayList(list_prod));
@@ -173,7 +188,7 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             prod_orc.remove(i);
         }
         total = getTotal();
-        txt_total.setText(total+"");
+        txt_total.setText(total + "");
         tab_orc.getItems().clear();
         tab_orc.getItems().addAll(prod_orc);
     }
@@ -194,7 +209,6 @@ public class TelaCadastrarOrcamentoController implements Initializable {
     @FXML
     private void busca_prod(KeyEvent event) {
         Produto p;
-
         if (aux != null) {
             aux.clear();
         }
@@ -216,7 +230,15 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             if (validacao()) {
                 ob[0] = cb_func.getSelectionModel().getSelectedItem().toString();
                 ob[1] = total;
-                ob[2] = "Juvenildo";
+                ob[2] = cbCliente.getSelectionModel().getSelectedItem().toString();
+                if (rdAprovado.isSelected()) {
+                    ob[3] = true;
+                } else {
+                    ob[3] = false;
+                }
+                ob[4] = LocalDate.now().toString();
+                ob[5] = LocalDate.now().plusDays(10).toString();
+
                 if (ctrl_orc.salvar(ob)) {
                     ult_orc = Banco.con.getMaxPK("orcamento", "orc_cod");
 
@@ -229,8 +251,12 @@ public class TelaCadastrarOrcamentoController implements Initializable {
                         }
                     }
                     if (certo) {
+                        prod_orc = null;
+                        tab_orc.getItems().clear();
                         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Orcamento cadastrado!", ButtonType.OK);
                         a.showAndWait();
+                        Limpar();
+
                     } else {
                         Alert a = new Alert(Alert.AlertType.ERROR, "Erro ao cadastrar orçamento!", ButtonType.OK);
                         a.showAndWait();
@@ -255,6 +281,18 @@ public class TelaCadastrarOrcamentoController implements Initializable {
         if (tab_orc.getItems().size() == 0) {
             certo = false;
             Alert a = new Alert(Alert.AlertType.ERROR, "Insira os produtos do orçamento!", ButtonType.OK);
+            a.showAndWait();
+        }
+
+        if (cbCliente.getSelectionModel().getSelectedIndex() == -1) {
+            certo = false;
+            Alert a = new Alert(Alert.AlertType.ERROR, "Selecione o cliente!", ButtonType.OK);
+            a.showAndWait();
+        }
+
+        if (!rdAprovado.isSelected() && !rdReprovado.isSelected()) {
+            certo = false;
+            Alert a = new Alert(Alert.AlertType.ERROR, "Selecione se está aprovado ou não!", ButtonType.OK);
             a.showAndWait();
         }
         return certo;
@@ -302,5 +340,36 @@ public class TelaCadastrarOrcamentoController implements Initializable {
             total += prod_orc.get(i).getValor() * prod_orc.get(i).getQtde();
         }
         return total;
+    }
+
+    @FXML
+    private void mascara_qtde(KeyEvent event) {
+        MaskFieldUtil.numericField(txt_quantidade);
+    }
+
+    private void Limpar() {
+        txt_quantidade.clear();
+        cbCliente.getSelectionModel().selectFirst();
+        cb_func.getSelectionModel().selectFirst();
+        if (rdAprovado.isSelected()) {
+            rdAprovado.setSelected(false);
+        } else {
+            rdReprovado.setSelected(false);
+        }
+        txt_total.setText("0.0");
+    }
+
+    @FXML
+    private void clk_aprovado(ActionEvent event) {
+        if (rdReprovado.isSelected()) {
+            rdReprovado.setSelected(false);
+        }
+    }
+
+    @FXML
+    private void clk_reprovado(ActionEvent event) {
+        if (rdAprovado.isSelected()) {
+            rdAprovado.setSelected(false);
+        }
     }
 }

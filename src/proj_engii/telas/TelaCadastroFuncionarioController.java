@@ -464,4 +464,10 @@ public class TelaCadastroFuncionarioController implements Initializable {
             }
         }
     }
+
+    @FXML
+    private void btnCancelar(ActionEvent event) {
+        estado_inicial(true);
+        limpar();
+    }
 }

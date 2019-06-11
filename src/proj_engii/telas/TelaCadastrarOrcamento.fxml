@@ -5,18 +5,20 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="tela" prefHeight="539.0" prefWidth="752.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj_engii.telas.TelaCadastrarOrcamentoController">
    <children>
-      <ComboBox fx:id="cb_func" layoutX="21.0" layoutY="30.0" prefWidth="150.0" promptText="Funcionário" style="-fx-background-color: #c7ecee;" />
+      <ComboBox fx:id="cb_func" layoutX="69.0" layoutY="45.0" prefWidth="150.0" promptText="Funcionário" style="-fx-background-color: #c7ecee;" />
       <TableView fx:id="tab_prod" layoutX="21.0" layoutY="120.0" prefHeight="389.0" prefWidth="310.0">
         <columns>
             <TableColumn fx:id="col_codigo" prefWidth="75.0" text="Código" />
-          <TableColumn fx:id="col_nome" prefWidth="75.0" text="Nome" />
+          <TableColumn fx:id="col_nome" prefWidth="75.0" text="Produto" />
           <TableColumn fx:id="col_valor" prefWidth="75.0" text="Valor" />
             <TableColumn fx:id="col_qtd" prefWidth="75.0" text="Quantidade" />
         </columns>
@@ -31,27 +33,49 @@
       <JFXTextField fx:id="txt_produto" focusColor="PERU" labelFloat="true" layoutX="21.0" layoutY="79.0" onKeyReleased="#busca_prod" prefHeight="27.0" prefWidth="228.0" promptText="Produto" unFocusColor="#c7ecee" />
       <JFXButton layoutX="377.0" layoutY="235.0" onAction="#btnAdd" prefHeight="27.0" prefWidth="39.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="+" textFill="#c7ecee" />
       <JFXButton layoutX="446.0" layoutY="44.0" text="-" />
-      <JFXTextField fx:id="txt_quantidade" layoutX="361.0" layoutY="174.0" prefHeight="27.0" prefWidth="71.0" promptText="Quantidade" unFocusColor="#c7ecee" />
+      <JFXTextField fx:id="txt_quantidade" layoutX="361.0" layoutY="174.0" onKeyReleased="#mascara_qtde" prefHeight="27.0" prefWidth="71.0" promptText="Quantidade" unFocusColor="#c7ecee" />
       <JFXButton layoutX="377.0" layoutY="288.0" onAction="#btnRet" prefHeight="27.0" prefWidth="39.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="-" textFill="#c7ecee" />
-      <HBox layoutY="525.0" prefHeight="50.0" prefWidth="792.0" style="-fx-border-color: #c7ecee;">
+      <HBox layoutY="532.0" prefHeight="43.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436); -fx-border-radius: 30;">
          <children>
-            <JFXButton onAction="#btnGravar" text="Gravar" textFill="#c7ecee">
+            <JFXButton onAction="#btnGravar" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Gravar" textFill="#c7ecee">
                <HBox.margin>
-                  <Insets left="300.0" right="20.0" top="10.0" />
+                  <Insets left="250.0" right="20.0" top="10.0" />
                </HBox.margin></JFXButton>
-            <JFXButton onAction="#btnBuscar" text="Buscar" textFill="#c7ecee">
+            <JFXButton onAction="#btnBuscar" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Buscar" textFill="#c7ecee">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin></JFXButton>
-            <JFXButton onAction="#btnSair" text="Sair" textFill="#c7ecee">
+            <JFXButton onAction="#btnSair" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436);" text="Sair" textFill="#c7ecee">
                <HBox.margin>
                   <Insets left="20.0" top="10.0" />
                </HBox.margin>
             </JFXButton>
          </children>
       </HBox>
-      <Label layoutX="639.0" layoutY="469.0" text="Total :" textFill="#c7ecee" />
-      <Label fx:id="txt_total" layoutX="686.0" layoutY="469.0" text="0" textFill="#c7ecee" />
-      <ComboBox fx:id="cbCliente" layoutX="201.0" layoutY="30.0" prefWidth="150.0" promptText="Cliente" style="-fx-background-color: #c7ecee;" />
+      <Label layoutX="705.0" layoutY="509.0" text="Total :" textFill="#c7ecee">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label fx:id="txt_total" layoutX="754.0" layoutY="509.0" text="0" textFill="#c7ecee">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <ComboBox fx:id="cbCliente" layoutX="246.0" layoutY="45.0" prefWidth="150.0" promptText="Cliente" style="-fx-background-color: #c7ecee;" />
+      <RadioButton fx:id="rdAprovado" layoutX="459.0" layoutY="84.0" mnemonicParsing="false" onAction="#clk_aprovado" text="Aprovado" textFill="#c7ecee" />
+      <RadioButton fx:id="rdReprovado" layoutX="565.0" layoutY="84.0" mnemonicParsing="false" onAction="#clk_reprovado" text="Não Aprovado" textFill="#c7ecee" />
+      <Label layoutX="459.0" layoutY="44.0" text="Orçamento" textFill="#c7ecee">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutY="-7.0" prefHeight="43.0" prefWidth="792.0" style="-fx-background-color: linear-gradient(#34495e,#2d3436); -fx-border-radius: 30;">
+         <children>
+            <Label layoutX="331.0" layoutY="7.0" text="Orçamento" textFill="#c7ecee">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
